@@ -57,4 +57,4 @@ g_sol$psNE
 [標準形ゲームの説明](normal-form)
 
 <br>
-
+<br>
