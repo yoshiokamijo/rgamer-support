@@ -2,6 +2,56 @@
 title: "rgamer support ページ"
 ---
 
-です。
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+## rgamer のインストール方法
+
+```{r, eval = FALSE}
+installed.packages("remotes")
+```
+
+```{r, eval = FALSE}
+remotes::install_github("yukiyanai/rgamer")
+```
+
+
+## 使用方法
+
+```{r, eval = TRUE}
+library(rgamer)
+```
+
+
+試しに
+
+```{r}
+g <- normal_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 =c(4, 5, 1, 2),
+  payoffs2 =c(4, 1, 5, 2),
+)
+```
+
+
+利得表を見せる
+```{r, results='asis'}
+g_sol <- solve_nfg(g)
+```
+
+NE を表示!
+
+```{r}
+g_sol$psNE
+```
+
+<br>
+<br>
+
+具体的な説明は以下のページ！
 
 [標準形ゲームの説明](normal-form)

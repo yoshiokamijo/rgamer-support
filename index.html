@@ -359,8 +359,86 @@ pre code {
 </div>
 
 
-<p>です。</p>
+<div id="rgamer-のインストール方法" class="section level2">
+<h2>rgamer のインストール方法</h2>
+<pre class="r"><code>installed.packages(&quot;remotes&quot;)</code></pre>
+<pre class="r"><code>remotes::install_github(&quot;yukiyanai/rgamer&quot;)</code></pre>
+</div>
+<div id="使用方法" class="section level2">
+<h2>使用方法</h2>
+<pre class="r"><code>library(rgamer)</code></pre>
+<p>試しに</p>
+<pre class="r"><code>g &lt;- normal_form(
+  players = c(&quot;player 1&quot;, &quot;player 2&quot;), 
+  s1 = c(&quot;C&quot;, &quot;D&quot;), 
+  s2 = c(&quot;C&quot;, &quot;D&quot;),   
+  payoffs1 =c(4, 5, 1, 2),
+  payoffs2 =c(4, 1, 5, 2),
+)</code></pre>
+<p>利得表を見せる</p>
+<pre class="r"><code>g_sol &lt;- solve_nfg(g)</code></pre>
+<table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="2">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+player 2
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+strategy
+</th>
+<th style="text-align:center;">
+C
+</th>
+<th style="text-align:center;">
+D
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+player 1
+</td>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+4, 4
+</td>
+<td style="text-align:center;">
+1, 5^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+D
+</td>
+<td style="text-align:center;">
+5^, 1
+</td>
+<td style="text-align:center;">
+2^, 2^
+</td>
+</tr>
+</tbody>
+</table>
+<p>NE を表示!</p>
+<pre class="r"><code>g_sol$psNE</code></pre>
+<pre><code>## [1] &quot;[D, D]&quot;</code></pre>
+<p><br> <br></p>
+<p>具体的な説明は以下のページ！</p>
 <p><a href="normal-form">標準形ゲームの説明</a></p>
+</div>
 
 
 
