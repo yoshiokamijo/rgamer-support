@@ -3,3 +3,5 @@ title: "rgamer support ページ"
 ---
 
 です。
+
+[標準形ゲームの説明](normal-form)
