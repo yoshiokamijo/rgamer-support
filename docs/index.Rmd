@@ -1,5 +1,8 @@
 ---
 title: "rgamer support ページ"
+author:
+  - 上條良夫（早稲田大学）
+date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
@@ -9,9 +12,13 @@ knitr::opts_chunk$set(message = FALSE)
 
 ## rgamer のインストール方法
 
+`rgamer` を github からインストールするために、まずパッケージ `remotes` をインストールする。
+
 ```{r, eval = FALSE}
 installed.packages("remotes")
 ```
+
+続けて、以下のコードを実行すれば `rgamer` がインストールできる。
 
 ```{r, eval = FALSE}
 remotes::install_github("yukiyanai/rgamer")
@@ -20,12 +27,17 @@ remotes::install_github("yukiyanai/rgamer")
 
 ## 使用方法
 
+`rgamer` を利用するためには、まず `rgamer` を読み込む必要がある。
+
 ```{r, eval = TRUE}
 library(rgamer)
 ```
 
+これで `rgamer` を使用可能である。
 
-試しに
+試しに、囚人のジレンマゲームを分析してみる。
+
+まずはゲーム（囚人のジレンマゲーム）を定義する。
 
 ```{r}
 g <- normal_form(
@@ -38,7 +50,8 @@ g <- normal_form(
 ```
 
 
-利得表を見せる
+利得表を見せる。
+
 ```{r, results='asis'}
 g_sol <- solve_nfg(g)
 ```

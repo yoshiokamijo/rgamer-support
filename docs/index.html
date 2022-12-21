@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="上條良夫（早稲田大学）" />
 
+<meta name="date" content="2022-12-21" />
 
 <title>rgamer support ページ</title>
 
@@ -355,19 +357,30 @@ pre code {
 
 
 <h1 class="title toc-ignore">rgamer support ページ</h1>
+<h4 class="author">上條良夫（早稲田大学）</h4>
+<h4 class="date">2022-12-21</h4>
 
 </div>
 
 
 <div id="rgamer-のインストール方法" class="section level2">
 <h2>rgamer のインストール方法</h2>
+<p><code>rgamer</code> を github
+からインストールするために、まずパッケージ <code>remotes</code>
+をインストールする。</p>
 <pre class="r"><code>installed.packages(&quot;remotes&quot;)</code></pre>
+<p>続けて、以下のコードを実行すれば <code>rgamer</code>
+がインストールできる。</p>
 <pre class="r"><code>remotes::install_github(&quot;yukiyanai/rgamer&quot;)</code></pre>
 </div>
 <div id="使用方法" class="section level2">
 <h2>使用方法</h2>
+<p><code>rgamer</code> を利用するためには、まず <code>rgamer</code>
+を読み込む必要がある。</p>
 <pre class="r"><code>library(rgamer)</code></pre>
-<p>試しに</p>
+<p>これで <code>rgamer</code> を使用可能である。</p>
+<p>試しに、囚人のジレンマゲームを分析してみる。</p>
+<p>まずはゲーム（囚人のジレンマゲーム）を定義する。</p>
 <pre class="r"><code>g &lt;- normal_form(
   players = c(&quot;player 1&quot;, &quot;player 2&quot;), 
   s1 = c(&quot;C&quot;, &quot;D&quot;), 
@@ -375,7 +388,7 @@ pre code {
   payoffs1 =c(4, 5, 1, 2),
   payoffs2 =c(4, 1, 5, 2),
 )</code></pre>
-<p>利得表を見せる</p>
+<p>利得表を見せる。</p>
 <pre class="r"><code>g_sol &lt;- solve_nfg(g)</code></pre>
 <table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -438,6 +451,7 @@ D
 <p><br> <br></p>
 <p>具体的な説明は以下のページ！</p>
 <p><a href="normal-form">標準形ゲームの説明</a></p>
+<p><br> <br> <br></p>
 </div>
 
 
