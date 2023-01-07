@@ -1,0 +1,19 @@
+name: "上條良夫のウェブサイト"
+navbar: 
+  title: "上條良夫のウェブサイト"
+  left:
+    - text: "rgamer の紹介"
+      href: index.html
+    - text: "テキストのサンプルコード"
+      href: sample.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+    toc: true
+    toc_float:
+      collapse: false
+    df_print: "kable"
+    include:
+    css: site_style.css
+output_dir: "docs"
