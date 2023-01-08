@@ -561,7 +561,7 @@ D
 標準形ゲームで使用した囚人のジレンマゲームを、player 1 が先手、player 2
 が後手として、プレイされる状況を考える。</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">seq_form</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;player1&quot;</span>, <span class="st">&quot;player2&quot;</span>), <span class="co"># c(&quot;player 1&quot;, &quot;player 2&quot;), だとBI でバグ発生 </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;P1&quot;</span>, <span class="st">&quot;P2&quot;</span>), <span class="co"># c(&quot;player 1&quot;, &quot;player 2&quot;), だとBI でバグ発生 </span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s1 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>), </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">s2 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>),   </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs1 =</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
@@ -577,9 +577,8 @@ D
 <div id="バックワードインダクション" class="section level3">
 <h3>バックワードインダクション</h3>
 <p>バックワードインダクションで戦略の組を求める。</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 以下のコードはなぜかエラー。たぶんバグだと思われる。</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g3_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g3)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>trees</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g3_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g3)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>trees</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><br></p>

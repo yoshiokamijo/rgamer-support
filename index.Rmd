@@ -110,7 +110,7 @@ g1_sol$br_plot
 
 ```{r}
 g2 <- seq_form(
-  players = c("player1", "player2"), # c("player 1", "player 2"), だとBI でバグ発生 
+  players = c("P1", "P2"), # c("player 1", "player 2"), だとBI でバグ発生 
   s1 = c("C", "D"), 
   s2 = c("C", "D"),   
   payoffs1 =c(4, 5, 1, 2),
@@ -132,7 +132,6 @@ g3 <- seq_extensive(g2, direction = "right")
 バックワードインダクションで戦略の組を求める。
 
 ```{r}
-# 以下のコードはなぜかエラー。たぶんバグだと思われる。
 g3_sol <- solve_efg(g3)
 g3_sol$trees
 ```
