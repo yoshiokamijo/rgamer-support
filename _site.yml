@@ -4,7 +4,7 @@ navbar:
   left:
     - text: "rgamer の紹介"
       href: index.html
-    - text: "テキストのサンプルコード"
+    - text: "「R で学ぶゲーム理論」のサンプルコード"
       href: sample.html
 output:
   html_document:

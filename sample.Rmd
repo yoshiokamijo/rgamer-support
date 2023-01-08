@@ -6,12 +6,11 @@ title: ""
 knitr::opts_chunk$set(message = FALSE)
 ```
 
+<br>
 
-## テキストのサンプルコード
+## Part 1
 
 <a href="code/ch01.R"> Chapter 1 </a>
-
-<br>
 
 <a href="code/ch02.R"> Chapter 2 </a>
 &nbsp;&nbsp;
@@ -19,33 +18,26 @@ knitr::opts_chunk$set(message = FALSE)
 
 <br>
 
+## Part 2
+
+
 <a href="code/ch03.R"> Chapter 3 </a>
 &nbsp;&nbsp;
 <a href="code/ch03_ex.R"> Chapter 3 練習問題</a>
-
-<br>
 
 <a href="code/ch04.R"> Chapter 4 </a>
 &nbsp;&nbsp;
 <a href="code/ch04_ex.R"> Chapter 4 練習問題</a>
 
-<br>
-
 <a href="code/ch05.R"> Chapter 5 </a>
 &nbsp;&nbsp;
 <a href="code/ch05_ex.R"> Chapter 5 練習問題</a>
-
-<br>
 
 <a href="code/ch06.R"> Chapter 6 </a>
 &nbsp;&nbsp;
 <a href="code/ch06_ex.R"> Chapter 6 練習問題</a>
 
-<br>
-
 <a href="code/ch07.R"> Chapter 7 </a>
-
-<br>
 
 <a href="code/ch08.R"> Chapter 8 </a>
 &nbsp;&nbsp;
@@ -53,23 +45,19 @@ knitr::opts_chunk$set(message = FALSE)
 
 <br>
 
+## Part 3
+
 <a href="code/ch09.R"> Chapter 9 </a>
 &nbsp;&nbsp;
 <a href="code/ch09_ex.R"> Chapter 9 練習問題</a>
-
-<br>
 
 <a href="code/ch10.R"> Chapter 10 </a>
 &nbsp;&nbsp;
 <a href="code/ch10_ex.R"> Chapter 10 練習問題</a>
 
-<br>
-
 <a href="code/ch11.R"> Chapter 11 </a>
 &nbsp;&nbsp;
 <a href="code/ch11_ex.R"> Chapter 11 練習問題</a>
-
-<br>
 
 <a href="code/ch12.R"> Chapter 12 </a>
 &nbsp;&nbsp;
@@ -77,18 +65,13 @@ knitr::opts_chunk$set(message = FALSE)
 
 <br>
 
+## Part 4
+
 <a href="code/ch13.R"> Chapter 13 </a>
 &nbsp;&nbsp;
 <a href="code/ch13_ex.R"> Chapter 13 練習問題</a>
 
-<br>
-
 <a href="code/ch14.R"> Chapter 14 </a>
 
-
-
-
-
-
-
+<br>
 
