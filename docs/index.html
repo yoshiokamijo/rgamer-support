@@ -470,7 +470,7 @@ div.tocify {
 <div id="ゲームを定義" class="section level3">
 <h3>ゲームを定義</h3>
 <p>まずはゲーム（囚人のジレンマゲーム）を定義する。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;player 1&quot;</span>, <span class="st">&quot;player 2&quot;</span>), </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s1 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>), </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">s2 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>),   </span>
@@ -481,7 +481,7 @@ div.tocify {
 </div>
 <div id="利得表を表示" class="section level3">
 <h3>利得表を表示</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g1_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g1)</span></code></pre></div>
 <table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -541,13 +541,13 @@ D
 </div>
 <div id="ne-を表示" class="section level3">
 <h3>NE を表示!</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g_sol<span class="sc">$</span>psNE</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>psNE</span></code></pre></div>
 <pre><code>## [1] &quot;[D, D]&quot;</code></pre>
 <p><br></p>
 </div>
 <div id="混合戦略まで考えて最適反応を図示" class="section level3">
 <h3>混合戦略まで考えて最適反応を図示</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g_sol<span class="sc">$</span>br_plot</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>br_plot</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>

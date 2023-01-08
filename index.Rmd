@@ -62,7 +62,7 @@ library(rgamer)
 まずはゲーム（囚人のジレンマゲーム）を定義する。
 
 ```{r}
-g <- normal_form(
+g1 <- normal_form(
   players = c("player 1", "player 2"), 
   s1 = c("C", "D"), 
   s2 = c("C", "D"),   
@@ -77,7 +77,7 @@ g <- normal_form(
 ### 利得表を表示
 
 ```{r, results='asis'}
-g_sol <- solve_nfg(g)
+g1_sol <- solve_nfg(g1)
 ```
 
 <br>
@@ -85,7 +85,7 @@ g_sol <- solve_nfg(g)
 ### NE を表示!
 
 ```{r}
-g_sol$psNE
+g1_sol$psNE
 ```
 
 <br>
@@ -93,7 +93,7 @@ g_sol$psNE
 ### 混合戦略まで考えて最適反応を図示
 
 ```{r}
-g_sol$br_plot
+g1_sol$br_plot
 ```
 
 
