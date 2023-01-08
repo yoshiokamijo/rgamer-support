@@ -1,6 +1,6 @@
-name: "上條良夫のウェブサイト"
+name: "R で学ぶゲーム理論"
 navbar: 
-  title: "上條良夫のウェブサイト"
+  title: "R で学ぶゲーム理論"
   left:
     - text: "rgamer の紹介"
       href: index.html

@@ -1,5 +1,5 @@
 ---
-title: "R で学ぶゲーム理論　サポートページ"
+title: "rgamer の紹介"
 author:
   - 上條良夫（早稲田大学）
   - 矢内勇生（高知工科大学）
@@ -10,13 +10,21 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(message = FALSE)
 ```
 
+rgamer とは、教育・研究目的でゲーム理論を使用する人たちのために作られた R のパッケージです。
+ゲームを自動的に解析・可視化することが可能です。
+このサイトでは、rgamer の機能と使い方について、簡単に紹介します。
+詳細については、我々が執筆した「R で学ぶゲーム理論」か、あるいはパッケージの<a hrer="">ヘルプページ</a>からご確認ください。
+
+<br>
+<br>
+
 
 ## rgamer のインストール方法
 
 `rgamer` を github からインストールするために、まずパッケージ `remotes` をインストールする。
 
 ```{r, eval = FALSE}
-installed.packages("remotes")
+install.packages("remotes")
 ```
 
 続けて、以下のコードを実行すれば `rgamer` がインストールできる。
@@ -24,6 +32,9 @@ installed.packages("remotes")
 ```{r, eval = FALSE}
 remotes::install_github("yukiyanai/rgamer")
 ```
+
+<br>
+<br>
 
 
 ## 使用方法
@@ -36,8 +47,15 @@ library(rgamer)
 
 これで `rgamer` を使用可能である。
 
+<br>
+<br>
+
+
+## 標準形ゲーム
+
 試しに、囚人のジレンマゲームを分析してみる。
 
+<br>
 
 ### ゲームを定義
 
@@ -53,6 +71,8 @@ g <- normal_form(
 )
 ```
 
+<br>
+
 
 ### 利得表を表示
 
@@ -60,12 +80,15 @@ g <- normal_form(
 g_sol <- solve_nfg(g)
 ```
 
+<br>
+
 ### NE を表示!
 
 ```{r}
 g_sol$psNE
 ```
 
+<br>
 
 ### 混合戦略まで考えて最適反応を図示
 
@@ -74,8 +97,142 @@ g_sol$br_plot
 ```
 
 
+## 展開形ゲーム
+
+### ゲームの木を表示する
+
+展開形ゲームを定義する方法はいくつか用意されている。
+まずは簡単な方法を紹介する。
+標準形ゲームで使用した囚人のジレンマゲームを、player 1 が先手、player 2 が後手として、プレイされる状況を考える。
+
+```{r}
+g2 <- seq_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 =c(4, 5, 1, 2),
+  payoffs2 =c(4, 1, 5, 2),
+)
+
+g3 <- seq_extensive(g2)
+```
+
+ゲームの木の向きを右向きに変える。
+
+```{r}
+g3 <- seq_extensive(g2, direction = "right")
+```
+
+
+### バックワードインダクション
+
+バックワードインダクションで戦略の組を求める。
+
+```{r}
+# 以下のコードはなぜかエラー。たぶんバグだと思われる。
+# g3_sol <- solve_efg(g3)
+```
+
+<br>
+
+### より一般的な定義の仕方
+
+展開形ゲームを定義する。
+
+```{r}
+g4 <- extensive_form(
+  players = list("P", # n1
+                 rep("R", 3), # n2 - n4
+                 rep(NA, 6) # n5 - n10
+  ),
+  actions = list(c("(4, 0)", "(2, 2)","(0, 4)"), # n1: P
+                 c("Y", "N"), ## n2: R
+                 c("Y", "N"), ## n3: R
+                 c("Y", "N")  ## n4: R
+  ),
+  payoffs = list(P = c(4, 0, 2, 0, 0, 0),
+                 R = c(0, 0, 2, 0, 4, 0)),
+  direction = "right",
+  show_tree = FALSE,
+)
+```
+
+
+ゲームの木を表示する。
+
+```{r}
+g4$tree
+```
+
+
+バックワードインダクションを実行する。
+
+```{r}
+g4_sol <- solve_efg(g4)
+
+library(patchwork)
+plot(g4_sol$trees[[1]] + g4_sol$trees[[2]])
+```
+
+これより、先手が利己的（自分に全部）な提案する場合も、先手が公平な提案をする場合も、どちらもあり得ることがわかる。
+
+
 <br>
 <br>
+
+## マッチング
+
+### ボストン方式
+
+```{r}
+m1 <- matching(
+  g1_names = c("M1", "M2"),
+  g1_prefs = list(c("W1", "W2", "W3"), 
+                  c("W3", "W2", "W1")),
+  g2_names = c("W1", "W2", "W3"),
+  g2_prefs = list(c("M1", "M2"), 
+                  c("M2", "M1"), 
+                  c("M1", "M2")),
+  algorithm = "Boston",
+  verbose = TRUE
+)
+
+print(m1)
+```
+
+
+### DA 方式
+
+```{r}
+
+m2 <- matching(
+  g1_names = c("M1", "M2"),
+  g1_prefs = list(c("W1", "W2", "W3"), 
+                  c("W3", "W2", "W1")),
+  g2_names = c("W1", "W2", "W3"),
+  g2_prefs = list(c("M1", "M2"), 
+                  c("M2", "M1"), 
+                  c("M1", "M2")),
+  algorithm = "DA",
+  verbose = TRUE
+)
+print(m2)
+
+```
+
+
+### 安定性
+
+```{r}
+is_stable(m1)
+
+is_stable(m2)
+
+```
+
+つまり、今回の選好リストにおいては、ボストン方式も DA 方式も安定な結果を返している。
+
+
 
 Enjoy with rgamer!!!
 

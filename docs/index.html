@@ -14,7 +14,7 @@
 
 <meta name="date" content="2023-01-08" />
 
-<title>R で学ぶゲーム理論　サポートページ</title>
+<title>rgamer の紹介</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -407,7 +407,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">上條良夫のウェブサイト</a>
+      <a class="navbar-brand" href="index.html">R で学ぶゲーム理論</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -429,7 +429,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R で学ぶゲーム理論　サポートページ</h1>
+<h1 class="title toc-ignore">rgamer の紹介</h1>
 <h4 class="author">上條良夫（早稲田大学）</h4>
 <h4 class="author">矢内勇生（高知工科大学）</h4>
 <h4 class="date">2023-01-08</h4>
@@ -437,15 +437,23 @@ div.tocify {
 </div>
 
 
+<p>rgamer
+とは、教育・研究目的でゲーム理論を使用する人たちのために作られた R
+のパッケージです。 ゲームを自動的に解析・可視化することが可能です。
+このサイトでは、rgamer の機能と使い方について、簡単に紹介します。
+詳細については、我々が執筆した「R
+で学ぶゲーム理論」か、あるいはパッケージの<a hrer="">ヘルプページ</a>からご確認ください。</p>
+<p><br> <br></p>
 <div id="rgamer-のインストール方法" class="section level2">
 <h2>rgamer のインストール方法</h2>
 <p><code>rgamer</code> を github
 からインストールするために、まずパッケージ <code>remotes</code>
 をインストールする。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span></code></pre></div>
 <p>続けて、以下のコードを実行すれば <code>rgamer</code>
 がインストールできる。</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;yukiyanai/rgamer&quot;</span>)</span></code></pre></div>
+<p><br> <br></p>
 </div>
 <div id="使用方法" class="section level2">
 <h2>使用方法</h2>
@@ -453,7 +461,12 @@ div.tocify {
 を読み込む必要がある。</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgamer)</span></code></pre></div>
 <p>これで <code>rgamer</code> を使用可能である。</p>
+<p><br> <br></p>
+</div>
+<div id="標準形ゲーム" class="section level2">
+<h2>標準形ゲーム</h2>
 <p>試しに、囚人のジレンマゲームを分析してみる。</p>
+<p><br></p>
 <div id="ゲームを定義" class="section level3">
 <h3>ゲームを定義</h3>
 <p>まずはゲーム（囚人のジレンマゲーム）を定義する。</p>
@@ -464,6 +477,7 @@ div.tocify {
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs1 =</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs2 =</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
 </div>
 <div id="利得表を表示" class="section level3">
 <h3>利得表を表示</h3>
@@ -523,17 +537,149 @@ D
 </tr>
 </tbody>
 </table>
+<p><br></p>
 </div>
 <div id="ne-を表示" class="section level3">
 <h3>NE を表示!</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g_sol<span class="sc">$</span>psNE</span></code></pre></div>
 <pre><code>## [1] &quot;[D, D]&quot;</code></pre>
+<p><br></p>
 </div>
 <div id="混合戦略まで考えて最適反応を図示" class="section level3">
 <h3>混合戦略まで考えて最適反応を図示</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g_sol<span class="sc">$</span>br_plot</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="展開形ゲーム" class="section level2">
+<h2>展開形ゲーム</h2>
+<div id="ゲームの木を表示する" class="section level3">
+<h3>ゲームの木を表示する</h3>
+<p>展開形ゲームを定義する方法はいくつか用意されている。
+まずは簡単な方法を紹介する。
+標準形ゲームで使用した囚人のジレンマゲームを、player 1 が先手、player 2
+が後手として、プレイされる状況を考える。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">seq_form</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;player 1&quot;</span>, <span class="st">&quot;player 2&quot;</span>), </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s1 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">s2 =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>),   </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs1 =</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs2 =</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">seq_extensive</span>(g2)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>ゲームの木の向きを右向きに変える。</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">seq_extensive</span>(g2, <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="バックワードインダクション" class="section level3">
+<h3>バックワードインダクション</h3>
+<p>バックワードインダクションで戦略の組を求める。</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 以下のコードはなぜかエラー。たぶんバグだと思われる。</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># g3_sol &lt;- solve_efg(g3)</span></span></code></pre></div>
+<p><br></p>
+</div>
+<div id="より一般的な定義の仕方" class="section level3">
+<h3>より一般的な定義の仕方</h3>
+<p>展開形ゲームを定義する。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span> <span class="fu">extensive_form</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">list</span>(<span class="st">&quot;P&quot;</span>, <span class="co"># n1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="st">&quot;R&quot;</span>, <span class="dv">3</span>), <span class="co"># n2 - n4</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>) <span class="co"># n5 - n10</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">actions =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;(4, 0)&quot;</span>, <span class="st">&quot;(2, 2)&quot;</span>,<span class="st">&quot;(0, 4)&quot;</span>), <span class="co"># n1: P</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n2: R</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n3: R</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>)  <span class="do">## n4: R</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs =</span> <span class="fu">list</span>(<span class="at">P =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">R =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_tree =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>ゲームの木を表示する。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>tree</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>バックワードインダクションを実行する。</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g4_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g4)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4_sol<span class="sc">$</span>trees[[<span class="dv">1</span>]] <span class="sc">+</span> g4_sol<span class="sc">$</span>trees[[<span class="dv">2</span>]])</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>これより、先手が利己的（自分に全部）な提案する場合も、先手が公平な提案をする場合も、どちらもあり得ることがわかる。</p>
 <p><br> <br></p>
+</div>
+</div>
+<div id="マッチング" class="section level2">
+<h2>マッチング</h2>
+<div id="ボストン方式" class="section level3">
+<h3>ボストン方式</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W3&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>)),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>), </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;Boston&quot;</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>##  Step 1 
+##    M1 proposes W1 
+##    W1 accepts M1 
+## 
+##    M2 proposes W3 
+##    W3 accepts M2</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m1)</span></code></pre></div>
+<pre><code>##  Results
+##  M1 : W1 
+##  M2 : W3 
+##  NA : W2</code></pre>
+</div>
+<div id="da-方式" class="section level3">
+<h3>DA 方式</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W3&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>)),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>), </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;DA&quot;</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>##  Step 1 
+##     M1 proposes W1 
+##     M1 and W1 temporarily match
+##  
+##     M2 proposes W3 
+##     M2 and W3 temporarily match
+## </code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m2)</span></code></pre></div>
+<pre><code>##  Results
+##  M1 : W1 
+##  M2 : W3 
+##  NA : W2</code></pre>
+</div>
+<div id="安定性" class="section level3">
+<h3>安定性</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m1)</span></code></pre></div>
+<pre><code>## $stable
+## [1] TRUE
+## 
+## $blocking_pairs
+## NULL</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m2)</span></code></pre></div>
+<pre><code>## $stable
+## [1] TRUE
+## 
+## $blocking_pairs
+## NULL</code></pre>
+<p>つまり、今回の選好リストにおいては、ボストン方式も DA
+方式も安定な結果を返している。</p>
 <p>Enjoy with rgamer!!!</p>
 <p><br> <br></p>
 </div>
