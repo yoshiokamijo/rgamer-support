@@ -214,7 +214,7 @@ g4_m_sol$psNE
 ### ボストン方式
 
 ```{r}
-m1 <- matching(
+m_boston <- matching(
   g1_names = c("M1", "M2"),
   g1_prefs = list(c("W1", "W2", "W3"), 
                   c("W2", "W1", "W3")),
@@ -227,7 +227,7 @@ m1 <- matching(
   verbose = TRUE
 )
 
-print(m1)
+print(m_boston)
 ```
 
 
@@ -235,7 +235,7 @@ print(m1)
 
 ```{r}
 
-m2 <- matching(
+m_da <- matching(
   g1_names = c("M1", "M2"),
   g1_prefs = list(c("W1", "W2", "W3"), 
                   c("W2", "W1", "W3")),
@@ -247,7 +247,7 @@ m2 <- matching(
   switch = TRUE,
   verbose = TRUE
 )
-print(m2)
+print(m_da)
 
 ```
 
@@ -255,9 +255,9 @@ print(m2)
 ### 安定性
 
 ```{r}
-is_stable(m1)
+is_stable(m_boston)
 
-is_stable(m2)
+is_stable(m_da)
 
 ```
 
@@ -266,6 +266,8 @@ is_stable(m2)
 (W1, M1) がブロッキングペアである。
 
 
+<br>
+<br>
 
 Enjoy with rgamer!!!
 
