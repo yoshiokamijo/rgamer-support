@@ -2,8 +2,10 @@ name: "R で学ぶゲーム理論"
 navbar: 
   title: "R で学ぶゲーム理論"
   left:
-    - text: "rgamer の紹介"
+    - text: "ホーム"
       href: index.html
+    - text: "rgamer"
+      href: rgamer.html
     - text: "「R で学ぶゲーム理論」のサンプルコード"
       href: sample.html
 output:
