@@ -217,12 +217,13 @@ g4_m_sol$psNE
 m1 <- matching(
   g1_names = c("M1", "M2"),
   g1_prefs = list(c("W1", "W2", "W3"), 
-                  c("W3", "W2", "W1")),
+                  c("W2", "W1", "W3")),
   g2_names = c("W1", "W2", "W3"),
-  g2_prefs = list(c("M1", "M2"), 
+  g2_prefs = list(c("M2", "M1"), 
                   c("M2", "M1"), 
                   c("M1", "M2")),
   algorithm = "Boston",
+  switch = TRUE,
   verbose = TRUE
 )
 
@@ -237,12 +238,13 @@ print(m1)
 m2 <- matching(
   g1_names = c("M1", "M2"),
   g1_prefs = list(c("W1", "W2", "W3"), 
-                  c("W3", "W2", "W1")),
+                  c("W2", "W1", "W3")),
   g2_names = c("W1", "W2", "W3"),
-  g2_prefs = list(c("M1", "M2"), 
+  g2_prefs = list(c("M2", "M1"), 
                   c("M2", "M1"), 
                   c("M1", "M2")),
   algorithm = "DA",
+  switch = TRUE,
   verbose = TRUE
 )
 print(m2)
@@ -259,7 +261,9 @@ is_stable(m2)
 
 ```
 
-つまり、今回の選好リストにおいては、ボストン方式も DA 方式も安定な結果を返している。
+つまり、今回の選好リストにおいては、DA 方式は安定な結果を返しているが、
+ボストン方式の結果は安定ではない。
+(W1, M1) がブロッキングペアである。
 
 
 
