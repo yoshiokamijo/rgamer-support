@@ -12,7 +12,7 @@
 <meta name="author" content="上條良夫（早稲田大学）" />
 <meta name="author" content="矢内勇生（高知工科大学）" />
 
-<meta name="date" content="2023-01-08" />
+<meta name="date" content="2023-01-09" />
 
 <title>rgamer の紹介</title>
 
@@ -432,19 +432,24 @@ div.tocify {
 <h1 class="title toc-ignore">rgamer の紹介</h1>
 <h4 class="author">上條良夫（早稲田大学）</h4>
 <h4 class="author">矢内勇生（高知工科大学）</h4>
-<h4 class="date">2023-01-08</h4>
+<h4 class="date">2023-01-09</h4>
 
 </div>
 
 
 <p><br></p>
+<div id="rgamer-とは" class="section level2">
+<h2>rgamer とは</h2>
 <p>rgamer
 とは、教育・研究目的でゲーム理論を使用する人たちのために作られた R
-のパッケージである。 ゲームを自動的に解析・可視化することが可能になる。
-このサイトでは、rgamer の機能と使い方について、簡単に紹介する。
+のパッケージである。 rgamer
+を使えば、ゲームを自動的に解析・可視化することが可能になる。
+このサイトでは、rgamer の機能と使い方について簡単に紹介する。
 詳細については、我々が執筆した「R
-で学ぶゲーム理論」か、あるいはパッケージの<a href="https://github.com/yukiyanai/rgamer">ヘルプページ</a>から確認可能である。</p>
+で学ぶゲーム理論」か、あるいはパッケージの<a href="https://github.com/yukiyanai/rgamer">ヘルプページ</a>から確認してほしい。</p>
+<p><img src="logo.png" width="50%" style="display: block; margin: auto;" /></p>
 <p><br> <br></p>
+</div>
 <div id="rgamer-のインストール方法" class="section level2">
 <h2>rgamer のインストール方法</h2>
 <p><code>rgamer</code> を github
@@ -549,7 +554,7 @@ D
 <div id="混合戦略まで考えて最適反応を図示" class="section level3">
 <h3>混合戦略まで考えて最適反応を図示</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>br_plot</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="展開形ゲーム" class="section level2">
@@ -569,10 +574,10 @@ D
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">seq_extensive</span>(g2)</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>ゲームの木の向きを右向きに変える。</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">seq_extensive</span>(g2, <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="バックワードインダクション" class="section level3">
 <h3>バックワードインダクション</h3>
@@ -580,7 +585,7 @@ D
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g3_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g3)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>trees</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="より一般的な定義の仕方" class="section level3">
@@ -603,13 +608,13 @@ D
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>ゲームの木を表示する。</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>tree</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>バックワードインダクションを実行する。</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>g4_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g4)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4_sol<span class="sc">$</span>trees[[<span class="dv">1</span>]] <span class="sc">+</span> g4_sol<span class="sc">$</span>trees[[<span class="dv">2</span>]])</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>これより、先手が利己的（自分に全部）な提案する場合も、先手が公平な提案をする場合も、どちらもあり得ることがわかる。</p>
 <p><br></p>
 </div>
