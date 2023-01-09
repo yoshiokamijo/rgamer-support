@@ -78,8 +78,8 @@ g1 <- normal_form(
   players = c("player 1", "player 2"), 
   s1 = c("C", "D"), 
   s2 = c("C", "D"),   
-  payoffs1 =c(4, 5, 1, 2),
-  payoffs2 =c(4, 1, 5, 2),
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
 )
 ```
 
@@ -122,8 +122,8 @@ g2 <- seq_form(
   players = c("P1", "P2"), # c("player 1", "player 2"), だとBI でバグ発生 
   s1 = c("C", "D"), 
   s2 = c("C", "D"),   
-  payoffs1 =c(4, 5, 1, 2),
-  payoffs2 =c(4, 1, 5, 2),
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
 )
 
 g3 <- seq_extensive(g2)
