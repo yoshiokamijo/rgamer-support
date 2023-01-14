@@ -142,6 +142,13 @@ g3 <- seq_extensive(g2, direction = "right")
 
 ```{r}
 g3_sol <- solve_efg(g3)
+g3_sol$sols
+```
+
+ゲームの木に表示!
+
+```{r}
+
 g3_sol$trees
 ```
 
@@ -183,7 +190,13 @@ g4 <- extensive_form(
 
 ```{r}
 g4_sol <- solve_efg(g4)
+g4_sol$sols
+```
 
+
+ゲームの木に表示！
+
+```{r}
 library(patchwork)
 plot(g4_sol$trees[[1]] / g4_sol$trees[[2]])
 ```

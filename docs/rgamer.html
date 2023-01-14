@@ -586,9 +586,13 @@ D
 <h3>バックワードインダクション</h3>
 <p>バックワードインダクションで戦略の組を求める。</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g3_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g3)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>trees</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>sols</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;[(D), (D, D)]&quot;</code></pre>
+<p>ゲームの木に表示!</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g3_sol<span class="sc">$</span>trees</span></code></pre></div>
 <pre><code>## [[1]]</code></pre>
-<p><img src="rgamer_files/figure-html/unnamed-chunk-11-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><img src="rgamer_files/figure-html/unnamed-chunk-12-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="より一般的な定義の仕方" class="section level3">
@@ -601,36 +605,42 @@ D
 <li>(P の取り分、R の取り分) = (0, 4), 完全に利他的</li>
 </ul>
 <p>から選択し、後手(R)が受け入れる(Y)か拒否する(N)かを選択する。</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span> <span class="fu">extensive_form</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">list</span>(<span class="st">&quot;P&quot;</span>, <span class="co"># n1</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="st">&quot;R&quot;</span>, <span class="dv">3</span>), <span class="co"># n2 - n4</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>) <span class="co"># n5 - n10</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">actions =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;(4, 0)&quot;</span>, <span class="st">&quot;(2, 2)&quot;</span>,<span class="st">&quot;(0, 4)&quot;</span>), <span class="co"># n1: P</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n2: R</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n3: R</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>)  <span class="do">## n4: R</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs =</span> <span class="fu">list</span>(<span class="at">P =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">R =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)),</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>,</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_tree =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="rgamer_files/figure-html/unnamed-chunk-12-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
-<p>バックワードインダクションを実行する。</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g4_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g4)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4_sol<span class="sc">$</span>trees[[<span class="dv">1</span>]] <span class="sc">/</span> g4_sol<span class="sc">$</span>trees[[<span class="dv">2</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span> <span class="fu">extensive_form</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">players =</span> <span class="fu">list</span>(<span class="st">&quot;P&quot;</span>, <span class="co"># n1</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="st">&quot;R&quot;</span>, <span class="dv">3</span>), <span class="co"># n2 - n4</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">6</span>) <span class="co"># n5 - n10</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">actions =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;(4, 0)&quot;</span>, <span class="st">&quot;(2, 2)&quot;</span>,<span class="st">&quot;(0, 4)&quot;</span>), <span class="co"># n1: P</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n2: R</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>), <span class="do">## n3: R</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>)  <span class="do">## n4: R</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">payoffs =</span> <span class="fu">list</span>(<span class="at">P =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">R =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>)),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_tree =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="rgamer_files/figure-html/unnamed-chunk-13-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p>バックワードインダクションを実行する。</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g4_sol <span class="ot">&lt;-</span> <span class="fu">solve_efg</span>(g4)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>g4_sol<span class="sc">$</span>sols</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;[((4, 0)), (Y, Y, Y)]&quot;
+## 
+## [[2]]
+## [1] &quot;[((2, 2)), (N, Y, Y)]&quot;</code></pre>
+<p>ゲームの木に表示！</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4_sol<span class="sc">$</span>trees[[<span class="dv">1</span>]] <span class="sc">/</span> g4_sol<span class="sc">$</span>trees[[<span class="dv">2</span>]])</span></code></pre></div>
+<p><img src="rgamer_files/figure-html/unnamed-chunk-15-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
 <p>これより、先手が利己的（自分に全部）な提案する場合も、先手が平等な提案をする場合も、どちらもあり得ることがわかる。</p>
 <p><br></p>
 </div>
 <div id="標準形への変換" class="section level3">
 <h3>標準形への変換</h3>
 <p>先ほどの展開形ゲームを標準形に変換する。</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>g4_m <span class="ot">&lt;-</span> <span class="fu">to_matrix</span>(g4)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>g4_m_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g4_m) </span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>g4_m <span class="ot">&lt;-</span> <span class="fu">to_matrix</span>(g4)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>g4_m_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g4_m) </span></code></pre></div>
 <table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -772,7 +782,7 @@ P
 </tbody>
 </table>
 <p>当然、NE を求めることができる。</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g4_m_sol<span class="sc">$</span>psNE</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g4_m_sol<span class="sc">$</span>psNE</span></code></pre></div>
 <pre><code>## [1] &quot;[((4, 0)), (Y, Y, Y)]&quot; &quot;[((4, 0)), (Y, Y, N)]&quot; &quot;[((4, 0)), (Y, N, Y)]&quot;
 ## [4] &quot;[((4, 0)), (Y, N, N)]&quot; &quot;[((2, 2)), (N, Y, Y)]&quot; &quot;[((2, 2)), (N, Y, N)]&quot;
 ## [7] &quot;[((4, 0)), (N, N, Y)]&quot; &quot;[((0, 4)), (N, N, Y)]&quot; &quot;[((4, 0)), (N, N, N)]&quot;</code></pre>
@@ -799,25 +809,25 @@ class="math inline">\(W1, W2, W3\)</span>
 <li><span class="math inline">\(W3: M1, M2\)</span></li>
 </ul>
 <p>では、ボストン方式の結果を求める。</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m_boston <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;Boston&quot;</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m_boston <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;Boston&quot;</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##  Step 1 
 ##    W3 proposes M1 
 ##    M1 accepts W3 
 ## 
 ##    W1, W2 propose M2 
 ##    M2 accepts W2</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_boston)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_boston)</span></code></pre></div>
 <pre><code>##  Results
 ##  W3 : M1 
 ##  W2 : M2 
@@ -826,18 +836,18 @@ class="math inline">\(W1, W2, W3\)</span>
 <div id="da-方式" class="section level3">
 <h3>DA 方式</h3>
 <p>次に、DA 方式の結果を求める。</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m_da <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;DA&quot;</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m_da <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;DA&quot;</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##  Step 1 
 ##     W1 proposes M2 
 ##     W1 and M2 temporarily match
@@ -857,7 +867,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ##     W3 proposes M2 
 ##     M2 rejects W3 
 ## </code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_da)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_da)</span></code></pre></div>
 <pre><code>##  Results
 ##  W1 : M1 
 ##  W2 : M2 
@@ -866,7 +876,7 @@ class="math inline">\(W1, W2, W3\)</span>
 <div id="安定性" class="section level3">
 <h3>安定性</h3>
 <p>それぞれの結果（マッチング）の安定性をチェックする。</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_boston)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_boston)</span></code></pre></div>
 <pre><code>## $stable
 ## [1] FALSE
 ## 
@@ -875,7 +885,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ## 1       W1       M1               NA               2                3
 ##   proposed_better
 ## 1               1</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_da)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_da)</span></code></pre></div>
 <pre><code>## $stable
 ## [1] TRUE
 ## 
