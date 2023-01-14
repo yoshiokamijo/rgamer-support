@@ -15,13 +15,13 @@ knitr::opts_chunk$set(message = FALSE, fig.align = 'center')
 
 ## rgamer とは
 
-rgamer とは、教育・研究目的でゲーム理論を使用する人たちのために作られた R のパッケージである。
+rgamer とは、学習・教育・研究目的でゲーム理論を使用する人たちのために作られた R のパッケージである。
 rgamer を使えば、ゲームを自動的に解析・可視化することが可能になる。
 このサイトでは、rgamer の機能と使い方について簡単に紹介する。
-詳細については、我々が執筆した「R で学ぶゲーム理論」か、あるいはパッケージの<a href="https://github.com/yukiyanai/rgamer">ヘルプページ</a>から確認してほしい。
+詳細については、我々が執筆した<a href="https://www.asakura.co.jp/detail.php?book_code=27024">「R で学ぶゲーム理論」（朝倉書店）</a>か、あるいはパッケージの<a href="https://github.com/yukiyanai/rgamer">ヘルプページ</a>から確認してほしい。
 
 
-```{r, echo=FALSE, out.width="50%", fig.align='center'}
+```{r, echo=FALSE, out.width="30%", fig.align='center'}
 knitr::include_graphics("logo.png")
 ```
 
