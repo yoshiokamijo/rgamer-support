@@ -7,7 +7,7 @@ date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, fig.align = 'center')
+knitr::opts_chunk$set(message = FALSE, fig.align = 'center', out.width="80%", out.height="80%")
 ```
 
 
