@@ -185,7 +185,7 @@ g4 <- extensive_form(
 g4_sol <- solve_efg(g4)
 
 library(patchwork)
-plot(g4_sol$trees[[1]] + g4_sol$trees[[2]])
+plot(g4_sol$trees[[1]] / g4_sol$trees[[2]])
 ```
 
 これより、先手が利己的（自分に全部）な提案する場合も、先手が平等な提案をする場合も、どちらもあり得ることがわかる。
