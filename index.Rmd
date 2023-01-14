@@ -90,8 +90,21 @@ rgamer を用いることで, これまでとまったく異なる授業を展�
 2022 年 7 月
 上篠良夫・矢内勇生
 
+<br>
 
+<A href = "rgamer.html">
+<font size = "4">
+rgamer についてもっと知りたい人はこちら
+</font>
+</A>
 
+<br>
+
+<A href = "sample.html">
+<font size = "4">
+テキストのサンプルコードを DL したい人はこちら
+</font>
+</A>
 
 
 
