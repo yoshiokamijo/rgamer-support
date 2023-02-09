@@ -6,6 +6,8 @@ navbar:
       href: index.html
     - text: "rgamer"
       href: rgamer.html
+    - text: "サンプルゲーム"
+      href: sample_game.html
     - text: "「R で学ぶゲーム理論」のサンプルコード"
       href: sample.html
 output:

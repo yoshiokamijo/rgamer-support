@@ -1,0 +1,437 @@
+---
+title: "サンプルゲーム"
+author:
+  - 上條良夫（早稲田大学）
+  - 矢内勇生（高知工科大学）
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, fig.align = 'center', out.width="80%", out.height="80%")
+
+library(patchwork)
+```
+
+
+<br>
+
+## 準備
+
+```{r, eval = TRUE}
+library(rgamer)
+```
+
+
+
+## 囚人のジレンマ
+
+```{r}
+g1 <- normal_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+```
+
+
+### 利得表を表示
+
+```{r, results='asis'}
+g1_sol <- solve_nfg(g1)
+```
+
+<br>
+
+### NE を表示
+
+```{r}
+g1_sol$psNE
+```
+
+
+<br>
+
+### 考えてみよう
+
+すべてのケースにおいて、player 1 の利得に + 10 をし、player 2 の利得に -5 をすると、NE は変わるのだろうか? 
+
+この点を確かめてみる。
+
+```{r}
+g2 <- normal_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 1, 5, 2) + 10, # R コードのルールにより、これですべてが + 10 される
+  payoffs2 = c(4, 5, 1, 2) - 5,
+)
+```
+
+当然、利得表は変化する。
+
+```{r, results='asis'}
+g2_sol <- solve_nfg(g2)
+```
+
+<br>
+
+でも、NE は変わらない。
+利得表を見比べれば分かることだが、今回のような利得の変換をしたとしても、
+最適反応（キャレット ^ の場所）が変化しないため、NE は変わらないのである。
+
+```{r}
+g2_sol$psNE
+```
+
+
+<br>
+<br>
+
+## 鹿狩りゲーム
+
+協力して鹿を狩るか、一人でウサギを狩るか。
+
+```{r}
+g1 <- normal_form(
+  players = c("hunter 1", "hunter 2"), 
+  s1 = c("S", "R"), 
+  s2 = c("S", "R"),   
+  payoffs1 = c(4, 1, 0, 1),
+  payoffs2 = c(4, 0, 1, 1),
+)
+```
+
+
+```{r, results='asis'}
+g1_sol <- solve_nfg(g1)
+```
+
+このゲームでは、純粋戦略 NE が二つある。
+
+```{r}
+g1_sol$psNE
+```
+
+<br>
+
+### 最適反応をプロット
+
+混合戦略 NE があるか確認するため、最適反応を表示
+
+```{r}
+g1_sol$br_plot
+```
+
+両者ともに、確率 1/4 で鹿を狩りに行くような、混合戦略 NE が存在する。
+
+
+<br>
+
+### 考えてみよう
+
+もし、鹿を狩ることに成功した時の利得が大きくなったら（例えばそれぞれ利得 9）、NE はどのように変わるだろうか。特に、混合戦略 NE で鹿を狩りに行く確率はどのように変化するだろうか? 
+
+早速試してみよう。
+
+```{r}
+g2 <- normal_form(
+  players = c("hunter 1", "hunter 2"), 
+  s1 = c("S", "R"), 
+  s2 = c("S", "R"),   
+  payoffs1 = c(9, 1, 0, 1), # 利得を修正
+  payoffs2 = c(9, 0, 1, 1), # 利得を修正
+)
+```
+
+
+```{r, results='asis'}
+g2_sol <- solve_nfg(g2)
+```
+
+純粋戦略 NE が二るあることは変わらない。
+
+```{r}
+g2_sol$psNE
+```
+
+<br>
+
+最適反応を表示すると
+
+```{r}
+g2_sol$br_plot
+```
+
+鹿を狩りに行く確率は 1/9 である。
+つまり、先ほどよりも下がることになる。
+
+
+<br>
+<br>
+
+
+## クールノー競争
+
+線形のクールノー競争では、firm 1, 2 の利潤（利得）は、例えば以下のようになる。
+
+$$
+\pi_1(x_1, x_2) = (10 - x_1 - x_2) x_1 - x_1
+$$
+
+$$
+\pi_2(x_1, x_2) = (10 - x_1 - x_2) x_2 - x_2
+$$
+
+<br>
+
+### 利得を数式で指定
+
+$x_1, x_2$ の数値を代入して利潤を計算して、それを payoffs1, payoffs2 に指定して解くことももちろん可能であるが、もっと便利な方法がある。
+それは、利得を式としてそのまま指定する方法である。
+
+```{r}
+g1 <- normal_form(
+   players = c("firm 1", "firm 2"),
+   payoffs1 = "(10 - x1  - x2) * x1 - x1",
+   payoffs2 = "(10 - x1  - x2) * x2 - x2",
+   par1_lim = c(0, 10),
+   par2_lim = c(0, 10),
+   pars = c("x1", "x2")
+   )
+```
+
+利得表は存在しないので、`solve_nfg()` を実行すると、すぐに最適反応が表示される。
+ただし、この方法は時間がかかるので要注意。
+
+```{r, results='asis', eval = FALSE}
+g1_sol <- solve_nfg(g1)
+```
+
+```{r, eval =FALSE, echo = FALSE}
+
+save(g1_sol, file = "data/cournot1.rds")
+# knitr::include_graphics('pic/cournot.png')
+
+```
+
+```{r, echo = FALSE}
+
+load(file = "data/cournot1.rds")
+
+```
+
+```{r, echo = FALSE}
+g1_sol$br_plot
+```
+
+今までと同じように、NE も計算されている。
+ただし、近似解を求めているので、実際の値とは微妙にズレる場合がある。
+今回のケースでは、本当は（3, 3）が NE である。
+
+```{r}
+g1_sol$NE
+```
+
+
+<br>
+
+### 考えてみよう
+
+firm 2 の費用が増加すると、NE におけるそれぞれの生産量はどのように変化するだろうか。
+例えば、firm 2 の費用を $5 * x_2$ として、計算し直してみよう。
+
+
+```{r}
+g2 <- normal_form(
+   players = c("firm 1", "firm 2"),
+   payoffs1 = "(10 - x1  - x2) * x1 - x1",
+   payoffs2 = "(10 - x1  - x2) * x2 - 5 * x2", # 費用増加！
+   par1_lim = c(0, 10),
+   par2_lim = c(0, 10),
+   pars = c("x1", "x2")
+   )
+```
+
+
+```{r, results='asis', eval = FALSE}
+g2_sol <- solve_nfg(g2)
+```
+
+
+```{r, eval =FALSE, echo = FALSE}
+
+save(g2_sol, file = "data/cournot2.rds")
+# knitr::include_graphics('pic/cournot.png')
+
+```
+
+```{r, echo = FALSE}
+
+load(file = "data/cournot2.rds")
+
+```
+
+```{r, echo = FALSE}
+g2_sol$br_plot
+```
+
+```{r}
+g2_sol$NE
+```
+
+これより、firm 1 の生産量が + 1.3、firm 2 の生産量が - 2.66 である。
+つまり、firm 1 の生産量の増加以上に、firm 2 の生産量は減少する。
+
+なぜ、このような結果がおきるのかを理解するため、g1 と g2 における最適反応を並べて比べてみよう。
+
+```{r}
+library(patchwork)
+
+br1 <- g1_sol$br_plot_NE
+br2 <- g2_sol$br_plot_NE
+
+plot(br1 + br2)
+```
+
+これより、右の図（firm 2 の費用増加後の最適反応）では、firm 2 の最適反応が下降していることがわかる。
+その一方で、firm 1 の最適反応は変化していない。NE は firm 1 の最適反応（赤線）を滑り降りるように変化している。
+よって、firm 2 の費用増加によって NE がどのように変化するのかは、firm 1 の最適反応の形状によって決まってくることになる。
+図より、赤線の傾きが急なので、firm 1 の生産量は微増であるが、firm 2 の生産量は大きく減少することになる。
+
+
+<br>
+<br>
+
+
+## コンテスト
+
+新入社員 1 と 2 が企画をそれぞれ考えてきて、どちらかが採用される。
+採用される確率は、準備も頑張れば頑張るほど高くなる。
+採用されると嬉しい。
+
+このような状況の利得を、例えば以下のように表現することができる。
+
+$$
+u_1(x_1, x_2) = P_1(x_1, x_2) \times 10 - x_1
+$$
+
+$$
+u_2(x_1, x_2) = P_2(x_1, x_2) \times 10 - x_2
+$$
+
+ここで $P_1$ は 1 の企画が通る確率であり、$P_2$ は 2 の企画が通る確率である。
+当然 $P_2 = 1 - P_1$ である。
+
+タロックコンテストとして知られる状況では
+$$
+P_1 = \frac{x_1}{x_1 + x_2}
+$$
+と定義される。ただし、$x_1 = x_2 = 0$ の場合は、$P_1 = 0.5$ とする。
+
+
+<br>
+
+
+### 利得を関数として指定
+
+このような場合わけが発生している状況は、一つの数式として表現できないため,
+数式として利得を指定する方法は利用できない。
+このような場合に対処できる、便利な方法が存在している。
+そして、この方法が最も万能な方法である。
+それは、利得を R の関数として定義して、それを指定する方法である。
+
+まず 1, 2 の利得を以下のように R の関数として定義する。
+```{r}
+u1 <- function(x1, x2){
+  
+  if (x1 == 0 & x2 == 0){
+    P1 <- 0.5 # 両者とも 0 の場合の P1 の値
+  } else{
+    P1 <- x1 / (x1 + x2) # 上記以外の場合の P1 の値
+  }
+  
+  profit <- P1 * 10 - x1
+  
+  return(profit)
+  
+}
+
+
+u2 <- function(x1, x2){
+  
+  if (x1 == 0 & x2 == 0){
+    P2 <- 0.5
+  } else{
+    P2 <- x2 / (x1 + x2)
+  }
+  
+  profit <- P2 * 10 - x2
+  
+  return(profit)
+  
+}
+
+```
+
+
+```{r}
+g1 <- normal_form(
+   players = c("firm 1", "firm 2"),
+   payoffs1 = u1, # 定義した関数の名前を指定する
+   payoffs2 = u2, # 定義した関数の名前を指定する
+   par1_lim = c(0, 10),
+   par2_lim = c(0, 10),
+   pars = c("x1", "x2")
+   )
+
+```
+
+
+```{r, results='asis', eval = FALSE}
+g1_sol <- solve_nfg(g1)
+```
+
+
+```{r, eval =FALSE, echo = FALSE}
+
+save(g1_sol, file = "data/contest1.rds")
+# knitr::include_graphics('pic/cournot.png')
+
+```
+
+```{r, echo = FALSE}
+
+load(file = "data/contest1.rds")
+
+```
+
+```{r, echo = FALSE}
+g1_sol$br_plot
+```
+
+このように、ちょっと面白い形状の最適反応が描ける。
+NE は以下の通りである。
+
+```{r}
+g1_sol$NE
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

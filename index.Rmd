@@ -100,6 +100,14 @@ rgamer を用いることで, これまでとまったく異なる授業を展�
 
 <A href = "rgamer.html">
 <font size = "4">
+rgamer について知りたい人はこちら
+</font>
+</A>
+
+<br>
+
+<A href = "sample_game.html">
+<font size = "4">
 rgamer についてもっと知りたい人はこちら
 </font>
 </A>
