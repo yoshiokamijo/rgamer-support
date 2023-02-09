@@ -196,9 +196,9 @@ g1 <- normal_form(
    players = c("firm 1", "firm 2"),
    payoffs1 = "(10 - x1  - x2) * x1 - x1",
    payoffs2 = "(10 - x1  - x2) * x2 - x2",
-   par1_lim = c(0, 10),
-   par2_lim = c(0, 10),
-   pars = c("x1", "x2")
+   par1_lim = c(0, 10), # x1 の範囲
+   par2_lim = c(0, 10), # x2 の範囲
+   pars = c("x1", "x2") # それぞれの戦略が x1, x2 であることを指定　
    )
 ```
 
@@ -281,7 +281,7 @@ g2_sol$br_plot
 g2_sol$NE
 ```
 
-これより、firm 1 の生産量が + 1.3、firm 2 の生産量が - 2.66 である。
+これより、firm 1 の生産量が + 1.33、firm 2 の生産量が - 2.66 である。
 つまり、firm 1 の生産量の増加以上に、firm 2 の生産量は減少する。
 
 なぜ、このような結果がおきるのかを理解するため、g1 と g2 における最適反応を並べて比べてみよう。
@@ -417,6 +417,96 @@ NE は以下の通りである。
 ```{r}
 g1_sol$NE
 ```
+
+
+### 考えてみよう
+
+企画が採用される確率を
+$$
+P_1 = \frac{x_1^3}{x_1^3 + x_2^3}
+$$
+のように変化させると、NE はどう変わるだろうか。
+ちなみに、このように $P_1$ を変えると、相手よりもちょっとでもがんばると、企画が通る確率がグッと増加するような状況を表すことができる。
+
+
+
+```{r}
+u1 <- function(x1, x2){
+  
+  if (x1 == 0 & x2 == 0){
+    P1 <- 0.5 # 両者とも 0 の場合の P1 の値
+  } else{
+    P1 <- x1^3 / (x1^3 + x2^3) # 上記以外の場合の P1 の値
+  }
+  
+  profit <- P1 * 10 - x1
+  
+  return(profit)
+  
+}
+
+
+u2 <- function(x1, x2){
+  
+  if (x1 == 0 & x2 == 0){
+    P2 <- 0.5
+  } else{
+    P2 <- x2^3 / (x1^3 + x2^3)
+  }
+  
+  profit <- P2 * 10 - x2
+  
+  return(profit)
+  
+}
+
+```
+
+
+```{r}
+
+g2 <- normal_form(
+   players = c("firm 1", "firm 2"),
+   payoffs1 = u1, # 定義した関数の名前を指定する
+   payoffs2 = u2, # 定義した関数の名前を指定する
+   par1_lim = c(0, 10),
+   par2_lim = c(0, 10),
+   pars = c("x1", "x2")
+   )
+
+```
+
+
+```{r, results='asis', eval = FALSE}
+g2_sol <- solve_nfg(g2)
+```
+
+
+```{r, eval =FALSE, echo = FALSE}
+
+save(g2_sol, file = "data/contest2.rds")
+# knitr::include_graphics('pic/cournot.png')
+
+```
+
+```{r, echo = FALSE}
+
+load(file = "data/contest2.rds")
+
+```
+
+```{r, echo = FALSE}
+g2_sol$br_plot
+```
+
+これまでみてきた図とは大きく異なり、最適反応が途中で切れていて、交点が存在しないように見える。もし交点が存在しなければ、純粋戦略 NE は存在しないことになる。
+実際 NE は計算できていない。
+
+```{r}
+g2_sol$NE
+```
+
+このように、相手よりもちょっとだけがんばることでほぼほぼ確実に勝てるような状況になると、純粋戦略 NE が存在しにくくなるのである。
 
 
 

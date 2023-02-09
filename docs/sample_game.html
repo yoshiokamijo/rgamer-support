@@ -12,7 +12,7 @@
 <meta name="author" content="上條良夫（早稲田大学）" />
 <meta name="author" content="矢内勇生（高知工科大学）" />
 
-<meta name="date" content="2023-02-09" />
+<meta name="date" content="2023-02-10" />
 
 <title>サンプルゲーム</title>
 
@@ -438,7 +438,7 @@ div.tocify {
 <h1 class="title toc-ignore">サンプルゲーム</h1>
 <h4 class="author">上條良夫（早稲田大学）</h4>
 <h4 class="author">矢内勇生（高知工科大学）</h4>
-<h4 class="date">2023-02-09</h4>
+<h4 class="date">2023-02-10</h4>
 
 </div>
 
@@ -783,9 +783,9 @@ R
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;firm 1&quot;</span>, <span class="st">&quot;firm 2&quot;</span>),</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> <span class="st">&quot;(10 - x1  - x2) * x1 - x1&quot;</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> <span class="st">&quot;(10 - x1  - x2) * x2 - x2&quot;</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="co"># x1 の範囲</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="co"># x2 の範囲</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>) <span class="co"># それぞれの戦略が x1, x2 であることを指定　</span></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
 <p>利得表は存在しないので、<code>solve_nfg()</code>
 を実行すると、すぐに最適反応が表示される。
@@ -817,7 +817,7 @@ R
 <p><img src="sample_game_files/figure-html/unnamed-chunk-26-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>NE</span></code></pre></div>
 <pre><code>## [1] 4.33 0.34</code></pre>
-<p>これより、firm 1 の生産量が + 1.3、firm 2 の生産量が - 2.66 である。
+<p>これより、firm 1 の生産量が + 1.33、firm 2 の生産量が - 2.66 である。
 つまり、firm 1 の生産量の増加以上に、firm 2 の生産量は減少する。</p>
 <p>なぜ、このような結果がおきるのかを理解するため、g1 と g2
 における最適反応を並べて比べてみよう。</p>
@@ -912,6 +912,58 @@ P_1 = \frac{x_1}{x_1 + x_2}
 は以下の通りである。</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>NE</span></code></pre></div>
 <pre><code>## [1] 2.5 2.5</code></pre>
+</div>
+<div id="考えてみよう-3" class="section level3">
+<h3>考えてみよう</h3>
+<p>企画が採用される確率を <span class="math display">\[
+P_1 = \frac{x_1^3}{x_1^3 + x_2^3}
+\]</span> のように変化させると、NE はどう変わるだろうか。
+ちなみに、このように <span class="math inline">\(P_1\)</span>
+を変えると、相手よりもちょっとでもがんばると、企画が通る確率がグッと増加するような状況を表すことができる。</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>u1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x1 <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> x2 <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    P1 <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># 両者とも 0 の場合の P1 の値</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    P1 <span class="ot">&lt;-</span> x1<span class="sc">^</span><span class="dv">3</span> <span class="sc">/</span> (x1<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> x2<span class="sc">^</span><span class="dv">3</span>) <span class="co"># 上記以外の場合の P1 の値</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  profit <span class="ot">&lt;-</span> P1 <span class="sc">*</span> <span class="dv">10</span> <span class="sc">-</span> x1</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>u2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x1 <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> x2 <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    P2 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    P2 <span class="ot">&lt;-</span> x2<span class="sc">^</span><span class="dv">3</span> <span class="sc">/</span> (x1<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> x2<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  profit <span class="ot">&lt;-</span> P2 <span class="sc">*</span> <span class="dv">10</span> <span class="sc">-</span> x2</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;firm 1&quot;</span>, <span class="st">&quot;firm 2&quot;</span>),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> u1, <span class="co"># 定義した関数の名前を指定する</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> u2, <span class="co"># 定義した関数の名前を指定する</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>g2_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g2)</span></code></pre></div>
+<p><img src="sample_game_files/figure-html/unnamed-chunk-41-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p>これまでみてきた図とは大きく異なり、最適反応が途中で切れていて、交点が存在しないように見える。もし交点が存在しなければ、純粋戦略
+NE は存在しないことになる。 実際 NE は計算できていない。</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>NE</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>このように、相手よりもちょっとだけがんばることでほぼほぼ確実に勝てるような状況になると、純粋戦略
+NE が存在しにくくなるのである。</p>
 </div>
 </div>
 
