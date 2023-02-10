@@ -750,7 +750,7 @@ R
 </tr>
 </tbody>
 </table>
-<p>純粋戦略 NE が二るあることは変わらない。</p>
+<p>純粋戦略 NE が二つあることは変わらない。</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>psNE</span></code></pre></div>
 <pre><code>## [1] &quot;[S, S]&quot; &quot;[R, R]&quot;</code></pre>
 <p><br></p>
@@ -827,7 +827,7 @@ R
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>br2 <span class="ot">&lt;-</span> g2_sol<span class="sc">$</span>br_plot_NE</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(br1 <span class="sc">+</span> br2)</span></code></pre></div>
-<p><img src="sample_game_files/figure-html/unnamed-chunk-28-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><img src="sample_game_files/figure-html/unnamed-chunk-28-1.png" width="100%" height="100%" style="display: block; margin: auto;" /></p>
 <p>これより、右の図（firm 2 の費用増加後の最適反応）では、firm 2
 の最適反応が下降していることがわかる。 その一方で、firm 1
 の最適反応は変化していない。NE は firm 1
@@ -964,6 +964,949 @@ NE は存在しないことになる。 実際 NE は計算できていない。
 <pre><code>## NULL</code></pre>
 <p>このように、相手よりもちょっとだけがんばることでほぼほぼ確実に勝てるような状況になると、純粋戦略
 NE が存在しにくくなるのである。</p>
+<p><br> <br></p>
+</div>
+</div>
+<div id="ペナルティの効果" class="section level2">
+<h2>ペナルティの効果</h2>
+<p>基準を満たさない人にペナルティを与える、というのはよくあること。
+しかし、基準を満たさない人全員にペナルティを与えると、それはそれで大変なので、
+基準を満たさなかった人の中で worst
+の人だけにぺナルティを与えるような状況を考えよう。</p>
+<p>それぞれ 0 - 10 までの努力量を選択できて、基準は 10 である。
+ペナルティは - 10 とする。
+努力量はそのままコストとなり、利得がマイナスだと見栄えが悪いので、利得に
++ 20 をする（このような変換は NE を変えない!）。</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>u1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x1 <span class="sc">==</span> <span class="dv">10</span>){</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x1</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x1 <span class="sc">&gt;</span> x2){</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x1</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x1 <span class="sc">-</span> <span class="dv">10</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>u2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x2 <span class="sc">==</span> <span class="dv">10</span>){</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x2</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x2 <span class="sc">&gt;</span> x1){</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x2</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">-</span> x2 <span class="sc">-</span> <span class="dv">10</span></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;person 1&quot;</span>, <span class="st">&quot;person 2&quot;</span>),</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> u1, <span class="co"># 定義した関数の名前を指定する</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> u2, <span class="co"># 定義した関数の名前を指定する</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>g1_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g1)</span></code></pre></div>
+<p><img src="sample_game_files/figure-html/unnamed-chunk-48-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p>図からは、二つの最適反応がくっついてしまっており、どこが交点か判別できない。</p>
+<p>NE を表示させると</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>NE</span></code></pre></div>
+<pre><code>## [1] 4.995 4.995</code></pre>
+<p>となる。約 5 を選ぶということだが、ほんとだろうか。
+ちょっと怪しい気がする。</p>
+<p><br></p>
+<div id="離散化" class="section level3">
+<h3>離散化</h3>
+<p>このような場合に役に立つのが、離散化の機能である。
+戦略が連続値の問題を、整数値などに変換して利得表を表示させて、そこから最適反応を観察するのがしばしば有益である。</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;person 1&quot;</span>, <span class="st">&quot;person 2&quot;</span>),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> u1, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> u2, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>), </span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>   <span class="at">discretize =</span> <span class="cn">TRUE</span>, <span class="co"># 離散化を実施</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>   <span class="at">discrete_points =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>)    <span class="co"># 離散化する際の点の数</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>g2_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g2)</span></code></pre></div>
+<table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="2">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="6">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+person 2
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+strategy
+</th>
+<th style="text-align:center;">
+0
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+6
+</th>
+<th style="text-align:center;">
+8
+</th>
+<th style="text-align:center;">
+10
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+person 1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+10, 10
+</td>
+<td style="text-align:center;">
+10, 18^
+</td>
+<td style="text-align:center;">
+10, 16
+</td>
+<td style="text-align:center;">
+10, 14
+</td>
+<td style="text-align:center;">
+10^, 12
+</td>
+<td style="text-align:center;">
+10^, 10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+18^, 10
+</td>
+<td style="text-align:center;">
+8, 8
+</td>
+<td style="text-align:center;">
+8, 16^
+</td>
+<td style="text-align:center;">
+8, 14
+</td>
+<td style="text-align:center;">
+8, 12
+</td>
+<td style="text-align:center;">
+8, 10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+16, 10
+</td>
+<td style="text-align:center;">
+16^, 8
+</td>
+<td style="text-align:center;">
+6, 6
+</td>
+<td style="text-align:center;">
+6, 14^
+</td>
+<td style="text-align:center;">
+6, 12
+</td>
+<td style="text-align:center;">
+6, 10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+14, 10
+</td>
+<td style="text-align:center;">
+14, 8
+</td>
+<td style="text-align:center;">
+14^, 6
+</td>
+<td style="text-align:center;">
+4, 4
+</td>
+<td style="text-align:center;">
+4, 12^
+</td>
+<td style="text-align:center;">
+4, 10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+12, 10^
+</td>
+<td style="text-align:center;">
+12, 8
+</td>
+<td style="text-align:center;">
+12, 6
+</td>
+<td style="text-align:center;">
+12^, 4
+</td>
+<td style="text-align:center;">
+2, 2
+</td>
+<td style="text-align:center;">
+2, 10^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+10, 10^
+</td>
+<td style="text-align:center;">
+10, 8
+</td>
+<td style="text-align:center;">
+10, 6
+</td>
+<td style="text-align:center;">
+10, 4
+</td>
+<td style="text-align:center;">
+10^, 2
+</td>
+<td style="text-align:center;">
+10^, 10^
+</td>
+</tr>
+</tbody>
+</table>
+<p>このように、戦略を 0, 2, 4, 6, 8, 10
+に制限してゲームの利得表が描画される。 これより、NE は [10, 10]
+とわかる。</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># game form がマトリックスタイプに変換されたため、g2_sol$psNE ではないので注意</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>psNE</span></code></pre></div>
+<pre><code>## [1] &quot;[10, 10]&quot;</code></pre>
+<p>この結果は、先ほどの分析結果とは大きく異なっている。
+それではどちらの結果を信用するべきだろうか？</p>
+<p>戦略を制限した今回のようなゲームでは、rgamer
+は最適反応を網羅的に探し出して求めているので、計算を間違えるということはありえない。
+つまり、今回計算された NE は、制限されたゲームの NE
+を正しく計算している。
+その一方で、戦略を連続値として扱った際には、rgamer では R
+の組み込みの最大値を探す関数を用いて最適反応を計算している。
+そのような計算結果はときどき当てにならない。今回はそのようなケースである。</p>
+<p>なので、[10, 10]
+のほうが妥当そうだ、ということになるのだが、そのような結論に至るのも性急かもしれない。もともと考えたかった問題は、努力量を連続値で選択できるような状況であった。0,
+2, 4, 6, 8, 10
+だけ選べるというのは、粗い近似にすぎない。そのようなときには、<code>discrete_points</code>
+を変えて、より細かい近似をすることによって [10, 10]
+の頑健性を確かめるのが良いだろう。</p>
+<p><br> <br></p>
+</div>
+</div>
+<div id="封印入札オークション" class="section level2">
+<h2>封印入札オークション</h2>
+<p>入札者たちが同時に入札額を提示し、より大きな金額をつけたほうが財を入手できるような、封印入札型のオークションについて考えよう。ここでは
+bidder 1 と bidder 2 が存在し、それぞれ財への評価額が異なっており、3 と
+5 とする。</p>
+<p><br></p>
+<div id="第一価格オークション" class="section level3">
+<h3>第一価格オークション</h3>
+<p>勝者（財を入手できる人）が支払い金額の決定方法にはいくつかのバリエーションが存在している。
+まずは最も自然と思われる方式である、勝者が自分の入札額を支払う、第一価格オークションについて考えよう。</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>u_f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  v1 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x1 <span class="sc">&gt;</span> x2){</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v1 <span class="sc">-</span> x1</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x1 <span class="sc">==</span> x2){</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> (v1 <span class="sc">-</span> x1) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="dv">0</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>u_f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x2 <span class="sc">&gt;</span> x1){</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v2 <span class="sc">-</span> x2</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x2 <span class="sc">==</span> x1){</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> (v2 <span class="sc">-</span> x2) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="dv">0</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>最初から離散化して解く。</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;bidder 1&quot;</span>, <span class="st">&quot;bidder 2&quot;</span>),</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> u_f1, </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> u_f2, </span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>), </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>   <span class="at">discretize =</span> <span class="cn">TRUE</span>, <span class="co"># 離散化を実施</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>   <span class="at">discrete_points =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">7</span>)    <span class="co"># 離散化する際の点の数</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>g1_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g1)</span></code></pre></div>
+<table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="2">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="7">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+bidder 2
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+strategy
+</th>
+<th style="text-align:center;">
+0
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+<th style="text-align:center;">
+6
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+bidder 1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2.5, 1.5
+</td>
+<td style="text-align:center;">
+0, 2^
+</td>
+<td style="text-align:center;">
+0, 1
+</td>
+<td style="text-align:center;">
+0, 0
+</td>
+<td style="text-align:center;">
+0, -1
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4^, 0
+</td>
+<td style="text-align:center;">
+2, 1^
+</td>
+<td style="text-align:center;">
+0, 1^
+</td>
+<td style="text-align:center;">
+0, 0
+</td>
+<td style="text-align:center;">
+0, -1
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3, 0
+</td>
+<td style="text-align:center;">
+3^, 0
+</td>
+<td style="text-align:center;">
+1.5, 0.5^
+</td>
+<td style="text-align:center;">
+0, 0
+</td>
+<td style="text-align:center;">
+0, -1
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2, 0^
+</td>
+<td style="text-align:center;">
+2, 0^
+</td>
+<td style="text-align:center;">
+2^, 0^
+</td>
+<td style="text-align:center;">
+1^, 0^
+</td>
+<td style="text-align:center;">
+0, -1
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1, 0^
+</td>
+<td style="text-align:center;">
+1, 0^
+</td>
+<td style="text-align:center;">
+1, 0^
+</td>
+<td style="text-align:center;">
+1^, 0^
+</td>
+<td style="text-align:center;">
+0.5^, -0.5
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0^, -1
+</td>
+<td style="text-align:center;">
+0^, -3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-1, 0^
+</td>
+<td style="text-align:center;">
+-0.5, -1.5
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>psNE</span></code></pre></div>
+<pre><code>## [1] &quot;[3, 2]&quot; &quot;[3, 3]&quot; &quot;[4, 3]&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="支配関係" class="section level3">
+<h3>支配関係</h3>
+<p>支配関係をチェックするには次のようにする。</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dom</span>(g1)</span></code></pre></div>
+<pre><code>## $dominated
+## $dominated$`bidder 1`
+## [1] &quot;6&quot;
+## 
+## $dominated$`bidder 2`
+## [1] &quot;6&quot;
+## 
+## 
+## $w_dominated
+## $w_dominated$`bidder 1`
+## [1] &quot;6&quot;
+## 
+## $w_dominated$`bidder 2`
+## [1] &quot;6&quot;</code></pre>
+<p>支配戦略の有無を知りたい場合は次のようにする。
+これより、支配戦略は存在していない。</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dom</span>(g1, <span class="at">type =</span> <span class="st">&quot;dominant&quot;</span>)</span></code></pre></div>
+<pre><code>## $dominant
+## $dominant$`bidder 1`
+## [1] NA
+## 
+## $dominant$`bidder 2`
+## [1] NA
+## 
+## 
+## $w_dominant
+## $w_dominant$`bidder 1`
+## [1] NA
+## 
+## $w_dominant$`bidder 2`
+## [1] NA</code></pre>
+<p><br></p>
+</div>
+<div id="第二価格オークション" class="section level3">
+<h3>第二価格オークション</h3>
+<p>続いて、勝者が敗者が提示した価格を支払うという、第二価格オークションについて考えよう。</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>u_s1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  v1 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x1 <span class="sc">&gt;</span> x2){</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v1 <span class="sc">-</span> x2 <span class="co"># ここが変わった</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x1 <span class="sc">==</span> x2){</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> (v1 <span class="sc">-</span> x2) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="dv">0</span> <span class="co"># ここが変わった</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>u_s2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x2 <span class="sc">&gt;</span> x1){</span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v2 <span class="sc">-</span> x1 <span class="co"># ここが変わった</span></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (x2 <span class="sc">==</span> x1){</span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> (v2 <span class="sc">-</span> x1) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="dv">0</span> <span class="co"># ここが変わった</span></span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(profit)</span>
+<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>最初から離散化して解く。</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;bidder 1&quot;</span>, <span class="st">&quot;bidder 2&quot;</span>),</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> u_s1, </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> u_s2, </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>),</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>), </span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>   <span class="at">discretize =</span> <span class="cn">TRUE</span>, <span class="co"># 離散化を実施</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>   <span class="at">discrete_points =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">7</span>)    <span class="co"># 離散化する際の点の数</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>g2_sol <span class="ot">&lt;-</span> <span class="fu">solve_nfg</span>(g2)</span></code></pre></div>
+<table class=" lightable-classic table" style="font-family: Arial; margin-left: auto; margin-right: auto; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="2">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="7">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+bidder 2
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+strategy
+</th>
+<th style="text-align:center;">
+0
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+<th style="text-align:center;">
+6
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+bidder 1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2.5, 1.5
+</td>
+<td style="text-align:center;">
+0, 3^
+</td>
+<td style="text-align:center;">
+0, 3^
+</td>
+<td style="text-align:center;">
+0, 3^
+</td>
+<td style="text-align:center;">
+0, 3^
+</td>
+<td style="text-align:center;">
+0^, 3^
+</td>
+<td style="text-align:center;">
+0^, 3^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5^, 0
+</td>
+<td style="text-align:center;">
+2, 1
+</td>
+<td style="text-align:center;">
+0, 2^
+</td>
+<td style="text-align:center;">
+0, 2^
+</td>
+<td style="text-align:center;">
+0, 2^
+</td>
+<td style="text-align:center;">
+0^, 2^
+</td>
+<td style="text-align:center;">
+0^, 2^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+5^, 0
+</td>
+<td style="text-align:center;">
+4^, 0
+</td>
+<td style="text-align:center;">
+1.5, 0.5
+</td>
+<td style="text-align:center;">
+0, 1^
+</td>
+<td style="text-align:center;">
+0, 1^
+</td>
+<td style="text-align:center;">
+0^, 1^
+</td>
+<td style="text-align:center;">
+0^, 1^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+5^, 0^
+</td>
+<td style="text-align:center;">
+4^, 0^
+</td>
+<td style="text-align:center;">
+3^, 0^
+</td>
+<td style="text-align:center;">
+1, 0^
+</td>
+<td style="text-align:center;">
+0, 0^
+</td>
+<td style="text-align:center;">
+0^, 0^
+</td>
+<td style="text-align:center;">
+0^, 0^
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+5^, 0^
+</td>
+<td style="text-align:center;">
+4^, 0^
+</td>
+<td style="text-align:center;">
+3^, 0^
+</td>
+<td style="text-align:center;">
+2^, 0^
+</td>
+<td style="text-align:center;">
+0.5, -0.5
+</td>
+<td style="text-align:center;">
+0^, -1
+</td>
+<td style="text-align:center;">
+0^, -1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5^, 0^
+</td>
+<td style="text-align:center;">
+4^, 0^
+</td>
+<td style="text-align:center;">
+3^, 0^
+</td>
+<td style="text-align:center;">
+2^, 0^
+</td>
+<td style="text-align:center;">
+1^, 0^
+</td>
+<td style="text-align:center;">
+0^, -1
+</td>
+<td style="text-align:center;">
+0^, -2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+5^, 0^
+</td>
+<td style="text-align:center;">
+4^, 0^
+</td>
+<td style="text-align:center;">
+3^, 0^
+</td>
+<td style="text-align:center;">
+2^, 0^
+</td>
+<td style="text-align:center;">
+1^, 0^
+</td>
+<td style="text-align:center;">
+0^, 0^
+</td>
+<td style="text-align:center;">
+-0.5, -1.5
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>psNE</span></code></pre></div>
+<pre><code>##  [1] &quot;[3, 0]&quot; &quot;[4, 0]&quot; &quot;[5, 0]&quot; &quot;[6, 0]&quot; &quot;[3, 1]&quot; &quot;[4, 1]&quot; &quot;[5, 1]&quot; &quot;[6, 1]&quot;
+##  [9] &quot;[3, 2]&quot; &quot;[4, 2]&quot; &quot;[5, 2]&quot; &quot;[6, 2]&quot; &quot;[4, 3]&quot; &quot;[5, 3]&quot; &quot;[6, 3]&quot; &quot;[5, 4]&quot;
+## [17] &quot;[6, 4]&quot; &quot;[0, 5]&quot; &quot;[1, 5]&quot; &quot;[2, 5]&quot; &quot;[3, 5]&quot; &quot;[6, 5]&quot; &quot;[0, 6]&quot; &quot;[1, 6]&quot;
+## [25] &quot;[2, 6]&quot; &quot;[3, 6]&quot;</code></pre>
+<p>これをみると、NE
+がいっぱいある。これが第二価格オークションの特徴。</p>
+<p>では、支配関係はどうなのか。</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dom</span>(g2, <span class="at">type =</span> <span class="st">&quot;dominant&quot;</span>)</span></code></pre></div>
+<pre><code>## $dominant
+## $dominant$`bidder 1`
+## [1] NA
+## 
+## $dominant$`bidder 2`
+## [1] NA
+## 
+## 
+## $w_dominant
+## $w_dominant$`bidder 1`
+## [1] &quot;5&quot;
+## 
+## $w_dominant$`bidder 2`
+## [1] &quot;3&quot;</code></pre>
+<p>bidder 1 の弱支配戦略は 5、bidder 2 の弱支配戦略は 3 である。
+つまり、今回はそれぞれ自身の評価額を入札することが弱支配戦略である。</p>
+<p><br></p>
+</div>
+<div id="考えてみよう-4" class="section level3">
+<h3>考えてみよう</h3>
+<p>第二価格オークションでは自身の評価額を入札することが弱支配戦略となっていた。
+これは偶然なのだろうか。利得の定義式の v1, v2
+を変更しながら試してみよう。</p>
+<p><br> <br></p>
 </div>
 </div>
 
