@@ -12,7 +12,7 @@
 <meta name="author" content="上條良夫（早稲田大学）" />
 <meta name="author" content="矢内勇生（高知工科大学）" />
 
-<meta name="date" content="2023-02-09" />
+<meta name="date" content="2023-02-11" />
 
 <title>rgamer の紹介</title>
 
@@ -438,7 +438,7 @@ div.tocify {
 <h1 class="title toc-ignore">rgamer の紹介</h1>
 <h4 class="author">上條良夫（早稲田大学）</h4>
 <h4 class="author">矢内勇生（高知工科大学）</h4>
-<h4 class="date">2023-02-09</h4>
+<h4 class="date">2023-02-11</h4>
 
 </div>
 
@@ -454,6 +454,20 @@ div.tocify {
 詳細については、我々が執筆した<a href="https://www.asakura.co.jp/detail.php?book_code=27024">「R
 で学ぶゲーム理論」（朝倉書店）</a>か、あるいはパッケージの<a href="https://github.com/yukiyanai/rgamer">ヘルプページ</a>から確認してほしい。</p>
 <p><img src="logo.png" width="30%" height="80%" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
+</div>
+<div id="r-および-rstudio-のインストール" class="section level2">
+<h2>R および RStudio のインストール</h2>
+<p>R および RStudio
+のインストールに関しては、有益な情報がネットで見つかるのでそれらを参考にしてほしい。</p>
+<p>もし、今までまったく R や RStudio
+に触れた経験もなく、かつ、インストールなどの作業にあまり自身がない方は、クラウド上で
+RStudio を使用できるサービス（Posit Clould / 旧 RStudio
+Clould）が無料で提供されているんで、そちらを利用すると良いだろう。</p>
+<p><a href="https://posit.cloud/">Posit Cloud へのリンク</a></p>
+<p><br></p>
+<p>R や RStudio
+の基本的な使い方（画面の見方）などについても、多くの情報がネットで公開されているので、必要であればそれらを参照して欲しい。</p>
 <p><br> <br></p>
 </div>
 <div id="rgamer-のインストール方法" class="section level2">
@@ -561,6 +575,7 @@ D
 <h3>混合戦略まで考えて最適反応を図示</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g1_sol<span class="sc">$</span>br_plot</span></code></pre></div>
 <p><img src="rgamer_files/figure-html/unnamed-chunk-8-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
 </div>
 </div>
 <div id="展開形ゲーム" class="section level2">
@@ -584,6 +599,7 @@ D
 <p>ゲームの木の向きを右向きに変える。</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">seq_extensive</span>(g2, <span class="at">direction =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
 <p><img src="rgamer_files/figure-html/unnamed-chunk-10-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 </div>
 <div id="バックワードインダクション" class="section level3">
 <h3>バックワードインダクション</h3>
@@ -835,6 +851,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ##  W3 : M1 
 ##  W2 : M2 
 ##  W1 : NA</code></pre>
+<p><br></p>
 </div>
 <div id="da-方式" class="section level3">
 <h3>DA 方式</h3>
@@ -875,6 +892,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ##  W1 : M1 
 ##  W2 : M2 
 ##  W3 : NA</code></pre>
+<p><br></p>
 </div>
 <div id="安定性" class="section level3">
 <h3>安定性</h3>
@@ -898,7 +916,7 @@ class="math inline">\(W1, W2, W3\)</span>
 方式は安定な結果を返しているが、 ボストン方式の結果は安定ではない。 (W1,
 M1) がブロッキングペアである。</p>
 <p><br> <br></p>
-<p>Enjoy with rgamer!!!</p>
+<p><strong>Enjoy with rgamer!!!</strong></p>
 <p><br> <br></p>
 </div>
 </div>

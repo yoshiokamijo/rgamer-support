@@ -687,7 +687,7 @@ u_f1 <- function(x1, x2){
 
 u_f2 <- function(x1, x2){
   
-  v2 <- 3 # bidder 1 の評価額
+  v2 <- 3 # bidder 2 の評価額
   
   if (x2 > x1){
     profit <- v2 - x2
@@ -776,7 +776,7 @@ u_s1 <- function(x1, x2){
 
 u_s2 <- function(x1, x2){
   
-  v2 <- 3 # bidder 1 の評価額
+  v2 <- 3 # bidder 2 の評価額
   
   if (x2 > x1){
     profit <- v2 - x1 # ここが変わった

@@ -27,6 +27,23 @@ knitr::include_graphics("logo.png")
 
 
 
+
+<br>
+<br>
+
+
+## R および RStudio のインストール
+
+R および RStudio のインストールに関しては、有益な情報がネットで見つかるのでそれらを参考にしてほしい。
+
+もし、今までまったく R や RStudio に触れた経験もなく、かつ、インストールなどの作業にあまり自身がない方は、クラウド上で RStudio を使用できるサービス（Posit Clould / 旧 RStudio Clould）が無料で提供されているんで、そちらを利用すると良いだろう。
+
+<a href="https://posit.cloud/">Posit Cloud へのリンク</a>
+
+<br>
+
+R や RStudio の基本的な使い方（画面の見方）などについても、多くの情報がネットで公開されているので、必要であればそれらを参照して欲しい。
+
 <br>
 <br>
 
@@ -109,6 +126,9 @@ g1_sol$br_plot
 ```
 
 
+<br>
+<br>
+
 ## 展開形ゲーム
 
 ### ゲームの木を表示する
@@ -135,6 +155,8 @@ g3 <- seq_extensive(g2)
 g3 <- seq_extensive(g2, direction = "right")
 ```
 
+
+<br>
 
 ### バックワードインダクション
 
@@ -263,6 +285,8 @@ print(m_boston)
 ```
 
 
+<br>
+
 ### DA 方式
 
 
@@ -286,6 +310,7 @@ print(m_da)
 
 ```
 
+<br>
 
 ### 安定性
 
@@ -306,7 +331,7 @@ is_stable(m_da)
 <br>
 <br>
 
-Enjoy with rgamer!!!
+**Enjoy with rgamer!!!**
 
 <br>
 <br>

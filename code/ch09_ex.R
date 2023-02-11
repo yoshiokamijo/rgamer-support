@@ -20,15 +20,12 @@ g_ex9.1 <- extensive_form(
     P1=c(3,0,1,1), #P1のn4-n7の利得
     P2 = c(3, 1, 0, 1)), # P2 の n4 - n7 の利得 
   family = "IPAexGothic",
-  direction = "right"
+  direction = "right",
   )
   
 # direction に指定できるのは、
-# "right", "up", "down", "bidirectional", "horizonal", "vertical". 
+# "right", "up", "down", "bidirectional", "horizontal", "vertical". 
 # デフォルトは "down".
-  
-# help の direction の説明において、"horizonal" がスペルミス
-
 
 
 
