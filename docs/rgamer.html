@@ -817,10 +817,10 @@ P
 <h3>シミュレーションを実行する</h3>
 <p>定義済みの標準形ゲームに対して、シミュレーションを実行することが可能である。
 例えば、仮想のプレイヤーたちに、囚人のジレンマをプレイさせてみよう。</p>
-<p>以下のコードで、50 組みのペアに 10
+<p>以下のコードで、50 ペアに 10
 期間囚人のジレンマをプレイさせることができる。</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20230303</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>g1_sim <span class="ot">&lt;-</span> <span class="fu">sim_game</span>(g1, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>g1_sim <span class="ot">&lt;-</span> <span class="fu">sim_game</span>(g1, <span class="co"># 「標準形ゲーム」で定義した g1 である</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_samples =</span> <span class="dv">50</span>,</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_periods =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><br></p>
