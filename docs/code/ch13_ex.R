@@ -1,11 +1,8 @@
 ## ch13_ex.R
 ## R codes for Ch. 13 of Kamijo and Yanai's Game Theory Book
-## 2022-04-27 Yoshio Kamijo
+## 2022-04-27, 2023-02-11, Yoshio Kamijo
 
 library(rgamer)
-
-
-
 
 
 ### 練習問題 13.1
@@ -111,7 +108,6 @@ print(m_ex13.2_bm)
 
 
 # boston, woman proposal
-## 重要　このケースが解けない！！！
 m_ex13.2_bw <- matching(
   g1_names = c("M1", "M2", "M3"),
   g1_prefs = list(c("W1"),
@@ -169,11 +165,7 @@ print(m_ex13.2_dw)
 is_stable(m_ex13.2_bm)
 is_stable(m_ex13.2_bw)
 is_stable(m_ex13.2_dm)
-is_stable(m_ex13.2_dw) # ここでエラーだね
-
-m_ex13.2_dw
-
-
+is_stable(m_ex13.2_dw)
 
 
 ### 練習問題 13.3

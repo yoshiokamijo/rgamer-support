@@ -1,6 +1,6 @@
 ## ch08_ex.R
 ## R codes for Ch. 8 of Kamijo and Yanai's Game Theory Book
-## 2022-04-20 Yoshio Kamijo
+## 2022-04-20, 2023-02-11,Yoshio Kamijo
 
 library(rgamer)
 
@@ -49,7 +49,7 @@ g_ex8.2_sol <- solve_nfg(g_ex8.2)
 x1 <- 20.7
 x2 <- 19.7
 
-(60 - x1 - x2) * x1 + x1 + x2 
+(60 - x1 - x2) * x1
 (60 - x1 - x2) * x2
 # よって、公企業のほうが利潤が高い!
 

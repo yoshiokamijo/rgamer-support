@@ -4,10 +4,6 @@
 
 library(rgamer)
 
-
-
-
-
 ### 練習問題 12.1
 # game12_1 と同一
 g_ex12.1 <- extensive_form(
@@ -255,12 +251,12 @@ g_ex12.6_r2 <- extensive_form(
 g_ex12.6_r2_sol <- solve_efg(g_ex12.6_r2, concept = "spe")
 
 
-# 以下はエラーになる。解けるとうれしいな。
+# 以下はエラーになる。今後の検討課題
 #g_ex12.6_r_m <- to_matrix(g_ex12.6_r) 
 #g_ex12.6_r_m_sol <- solve_nfg(g_ex12.6_r_m) 
 #g_ex12.6_r_sol <- solve_efg(g_ex12.6_r, concept = "spe")
 
-### 重要
+### この後の検討課題
 # restricted した後のゲームに対して
 # to_matrix は可能か
 # solve_efg は可能か

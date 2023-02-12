@@ -8,15 +8,17 @@ navbar:
       href: rgamer.html
     - text: "サンプルゲーム"
       href: sample_game.html
+    - text: "資料作成"
+      href: material.html
     - text: "「R で学ぶゲーム理論」のサンプルコード"
       href: sample.html
 output:
   html_document:
-    theme: cosmo
+    theme: sandstone
     highlight: tango
     toc: true
     toc_float:
-      collapse: false
+      collapse: true
     df_print: "kable"
     include:
     css: site_style.css

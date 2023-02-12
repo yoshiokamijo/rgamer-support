@@ -1,0 +1,65 @@
+---
+title: "資料作成"
+author:
+  - 上條良夫（早稲田大学）
+  - 矢内勇生（高知工科大学）
+date: "`r Sys.Date()`"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, fig.align = 'center', out.width="80%", out.height="80%")
+```
+
+
+rgamer を用いた講義資料などの作成方法について、簡単に紹介する。
+
+<br>
+<br>
+
+## Powerpoint や Keynote を使用する場合
+
+rgamer が描画した図表をコピーして貼り付ければ良い。
+利得表は Viewer （default の設定では RStudio の右下のパネル） に、
+最適反応やゲームの木などの図は Plots（default の設定では RStudio の右下のパネル） に表示されている。
+ここから Exports でクリップボードにコピーできる。
+
+
+<br>
+<br>
+
+## ioslides (HTML) で作成
+
+外部のアプリケーションを利用せずに、
+RStudio を用いて直接プレゼンテーション用の資料を作成することも可能である。
+いくつか方法があるが、ioslides (HTML) で作るのが最も簡単である。
+
+ioslides で作成できる資料は以下のようなものである。
+
+<a href="data/test01.html"> html 形式の資料</a>
+
+<a href="data/test01.pdf"> pdf 形式の資料</a>
+
+このような資料を作成するには、以下の R Markdown 形式のファイルを RStudio で開いて、Knit ボタンを押せば良い。
+
+<a href="data/test01.rmd"> rmd ファイル </a>
+
+<br>
+
+R Markdown の表記などについては以下のサイトが参考になります。
+
+<a href="https://kazutan.github.io/kazutanR/Rmd_intro.html"> Kaztan.R の R Markdown 入門 </a>
+
+その他にも参考になるサイトはたくさんあります。
+
+
+<br>
+<br>
+
+## beamer で作成
+
+準備中
+
+
+
+

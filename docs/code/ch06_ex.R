@@ -56,7 +56,7 @@ g_ex6.3 <- normal_form(
 )
 
 g_ex6.3_sol <- solve_nfg(g_ex6.3, mixed = TRUE)
-ex6.3_sol$msNE
+g_ex6.3_sol$msNE
 
 # [(1/3, 1/3, 1/3), (1/3, 1/3, 1/3)] も msNE である
 # ただし、このゲームには、[(1/2, 0, 1/2), (1/2, 0, 1/2)] という msNE もある

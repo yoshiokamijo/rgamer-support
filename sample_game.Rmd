@@ -194,8 +194,8 @@ $x_1, x_2$ の数値を代入して利潤を計算して、それを payoffs1, p
 ```{r}
 g1 <- normal_form(
    players = c("firm 1", "firm 2"),
-   payoffs1 = "(10 - x1  - x2) * x1 - x1",
-   payoffs2 = "(10 - x1  - x2) * x2 - x2",
+   payoffs1 = "(10 - x1  - x2) * x1 - x1", # 数式をそのまま書く
+   payoffs2 = "(10 - x1  - x2) * x2 - x2", # 数式をそのまま書く
    par1_lim = c(0, 10), # x1 の範囲
    par2_lim = c(0, 10), # x2 の範囲
    pars = c("x1", "x2") # それぞれの戦略が x1, x2 であることを指定　
@@ -633,7 +633,7 @@ g2_sol <- solve_nfg(g2)
 これより、NE は [10, 10] とわかる。
 
 ```{r}
-# game form がマトリックスタイプに変換されたため、g2_sol$psNE ではないので注意
+# game form がマトリックスタイプに変換されたため、g2_sol$NE ではないので注意
 g2_sol$psNE
 ```
 

@@ -8,6 +8,11 @@ knitr::opts_chunk$set(message = FALSE)
 
 <br>
 
+<a href="https://www.asakura.co.jp/detail.php?book_code=27024">「R で学ぶゲーム理論」（朝倉書店）</a>で使用されたコードを公開します。
+
+<br>
+<br>
+
 ## Part 1
 
 <a href="code/ch01.R"> Chapter 1 </a>

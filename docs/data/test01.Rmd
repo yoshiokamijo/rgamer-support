@@ -1,0 +1,115 @@
+---
+title: "rgamer を用いた資料作成"
+author: "Yoshio Kamijo"
+date: '2023-02-12'
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r}
+library(rgamer)
+```
+
+
+## 実行しつつコードを表示
+\small
+
+```{r echo = TRUE}
+g1 <- normal_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+
+sol_g1 <- solve_nfg(g1, 
+                    mark_br = FALSE, 
+                    mixed = TRUE, 
+                    show_table = FALSE)
+
+```
+
+
+
+## 利得表を表示
+\small
+
+```{r, echo = TRUE, results = 'asis'}
+
+sol_g1$table
+
+```
+
+
+
+
+## 最適反応を表示
+\small
+
+```{r, echo = TRUE, fig.align='center'}
+
+sol_g1$br_plot
+
+```
+
+
+## 支配関係を表示
+\small
+
+コードは表示しない
+
+```{r}
+dom(g1)
+```
+
+
+
+## 展開形ゲーム
+
+```{r, echo = TRUE}
+g2 <- seq_form(
+  players = c("P1", "P2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+```
+
+
+## ゲームの木
+
+```{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2)
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "right")
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "up")
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "vertical")
+```
+
+
+
+

@@ -12,14 +12,14 @@
 <meta name="author" content="上條良夫（早稲田大学）" />
 <meta name="author" content="矢内勇生（高知工科大学）" />
 
-<meta name="date" content="2023-02-10" />
+<meta name="date" content="2023-02-12" />
 
 <title>サンプルゲーム</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -421,6 +421,9 @@ div.tocify {
   <a href="sample_game.html">サンプルゲーム</a>
 </li>
 <li>
+  <a href="material.html">資料作成</a>
+</li>
+<li>
   <a href="sample.html">「R で学ぶゲーム理論」のサンプルコード</a>
 </li>
       </ul>
@@ -438,7 +441,7 @@ div.tocify {
 <h1 class="title toc-ignore">サンプルゲーム</h1>
 <h4 class="author">上條良夫（早稲田大学）</h4>
 <h4 class="author">矢内勇生（高知工科大学）</h4>
-<h4 class="date">2023-02-10</h4>
+<h4 class="date">2023-02-12</h4>
 
 </div>
 
@@ -781,8 +784,8 @@ R
 それは、利得を式としてそのまま指定する方法である。</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">normal_form</span>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">players =</span> <span class="fu">c</span>(<span class="st">&quot;firm 1&quot;</span>, <span class="st">&quot;firm 2&quot;</span>),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> <span class="st">&quot;(10 - x1  - x2) * x1 - x1&quot;</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> <span class="st">&quot;(10 - x1  - x2) * x2 - x2&quot;</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs1 =</span> <span class="st">&quot;(10 - x1  - x2) * x1 - x1&quot;</span>, <span class="co"># 数式をそのまま書く</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">payoffs2 =</span> <span class="st">&quot;(10 - x1  - x2) * x2 - x2&quot;</span>, <span class="co"># 数式をそのまま書く</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">par1_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="co"># x1 の範囲</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">par2_lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="co"># x2 の範囲</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>) <span class="co"># それぞれの戦略が x1, x2 であることを指定　</span></span>
@@ -1231,7 +1234,7 @@ person 1
 <p>このように、戦略を 0, 2, 4, 6, 8, 10
 に制限してゲームの利得表が描画される。 これより、NE は [10, 10]
 とわかる。</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># game form がマトリックスタイプに変換されたため、g2_sol$psNE ではないので注意</span></span>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># game form がマトリックスタイプに変換されたため、g2_sol$NE ではないので注意</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>g2_sol<span class="sc">$</span>psNE</span></code></pre></div>
 <pre><code>## [1] &quot;[10, 10]&quot;</code></pre>
 <p>この結果は、先ほどの分析結果とは大きく異なっている。
@@ -1281,7 +1284,7 @@ bidder 1 と bidder 2 が存在し、それぞれ財への評価額が異なっ�
 <span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>u_f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
 <span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 2 の評価額</span></span>
 <span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x2 <span class="sc">&gt;</span> x1){</span>
 <span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v2 <span class="sc">-</span> x2</span>
@@ -1609,7 +1612,7 @@ bidder 1
 <span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>u_s2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2){</span>
 <span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 1 の評価額</span></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>  v2 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># bidder 2 の評価額</span></span>
 <span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x2 <span class="sc">&gt;</span> x1){</span>
 <span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>    profit <span class="ot">&lt;-</span> v2 <span class="sc">-</span> x1 <span class="co"># ここが変わった</span></span>
