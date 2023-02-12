@@ -811,6 +811,28 @@ P
 <p><br> <br></p>
 </div>
 </div>
+<div id="シミュレーション" class="section level2">
+<h2>シミュレーション</h2>
+<div id="シミュレーションを実行する" class="section level3">
+<h3>シミュレーションを実行する</h3>
+<p>定義済みの標準形ゲームに対して、シミュレーションを実行することが可能である。
+例えば、仮想のプレイヤーたちに、囚人のジレンマをプレイさせてみよう。</p>
+<p>以下のコードで、50 組みのペアに 10
+期間囚人のジレンマをプレイさせることができる。</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20230303</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>g1_sim <span class="ot">&lt;-</span> <span class="fu">sim_game</span>(g1, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_samples =</span> <span class="dv">50</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_periods =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="シミュレーションの結果を眺める" class="section level3">
+<h3>シミュレーションの結果を眺める。</h3>
+<p>当たり前だが、両者ともにすぐに D を選択し続けるようになる。</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g1_sim<span class="sc">$</span>plot_mean</span></code></pre></div>
+<p><img src="rgamer_files/figure-html/unnamed-chunk-19-1.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
+</div>
+</div>
 <div id="マッチング" class="section level2">
 <h2>マッチング</h2>
 <div id="ボストン方式" class="section level3">
@@ -831,25 +853,25 @@ class="math inline">\(W1, W2, W3\)</span>
 <li><span class="math inline">\(W3: M1, M2\)</span></li>
 </ul>
 <p>では、ボストン方式の結果を求める。</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m_boston <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;Boston&quot;</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m_boston <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;Boston&quot;</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##  Step 1 
 ##    W3 proposes M1 
 ##    M1 accepts W3 
 ## 
 ##    W1, W2 propose M2 
 ##    M2 accepts W2</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_boston)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_boston)</span></code></pre></div>
 <pre><code>##  Results
 ##  W3 : M1 
 ##  W2 : M2 
@@ -859,18 +881,18 @@ class="math inline">\(W1, W2, W3\)</span>
 <div id="da-方式" class="section level3">
 <h3>DA 方式</h3>
 <p>次に、DA 方式の結果を求める。</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m_da <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;DA&quot;</span>,</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>m_da <span class="ot">&lt;-</span> <span class="fu">matching</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_names =</span> <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">g1_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>), </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W3&quot;</span>)),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_names =</span> <span class="fu">c</span>(<span class="st">&quot;W1&quot;</span>, <span class="st">&quot;W2&quot;</span>, <span class="st">&quot;W3&quot;</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g2_prefs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M2&quot;</span>, <span class="st">&quot;M1&quot;</span>), </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>)),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">algorithm =</span> <span class="st">&quot;DA&quot;</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">switch =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##  Step 1 
 ##     W1 proposes M2 
 ##     W1 and M2 temporarily match
@@ -890,7 +912,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ##     W3 proposes M2 
 ##     M2 rejects W3 
 ## </code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_da)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m_da)</span></code></pre></div>
 <pre><code>##  Results
 ##  W1 : M1 
 ##  W2 : M2 
@@ -900,7 +922,7 @@ class="math inline">\(W1, W2, W3\)</span>
 <div id="安定性" class="section level3">
 <h3>安定性</h3>
 <p>それぞれの結果（マッチング）の安定性をチェックする。</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_boston)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_boston)</span></code></pre></div>
 <pre><code>## $stable
 ## [1] FALSE
 ## 
@@ -909,7 +931,7 @@ class="math inline">\(W1, W2, W3\)</span>
 ## 1       W1       M1               NA               2                3
 ##   proposed_better
 ## 1               1</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_da)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_stable</span>(m_da)</span></code></pre></div>
 <pre><code>## $stable
 ## [1] TRUE
 ## 
