@@ -40,7 +40,7 @@ ioslides で作成できる資料は以下のようなものである。
 
 <a href="data/test01.pdf"> pdf 形式の資料</a>
 
-このような資料を作成するには、以下の内容を R Markdown 形式で保存して、RStudio で開いて Knit ボタンを押せば良い。
+このような資料を作成するには、以下の内容を R Markdown 形式 （拡張子が Rmd のファイル）で保存して、RStudio で開いて Knit ボタンを押せば良い。
 
 <br>
 
@@ -160,9 +160,9 @@ g3 <- seq_extensive(g2, direction = "vertical")
 
 <br>
 
-上記の rmd ファイル。
+上記の Rmd ファイル。
 
-<a href="data/test01.Rmd"> rmd ファイル </a>
+<a href="data/test01.Rmd"> Rmd ファイル </a>
 
 <br>
 
