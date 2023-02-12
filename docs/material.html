@@ -364,8 +364,121 @@ div.tocify {
 <p>ioslides で作成できる資料は以下のようなものである。</p>
 <p><a href="data/test01.html"> html 形式の資料</a></p>
 <p><a href="data/test01.pdf"> pdf 形式の資料</a></p>
-<p>このような資料を作成するには、以下の R Markdown 形式のファイルを
-RStudio で開いて、Knit ボタンを押せば良い。</p>
+<p>このような資料を作成するには、以下の内容を R Markdown
+形式で保存して、RStudio で開いて Knit ボタンを押せば良い。</p>
+<p><br></p>
+<pre><code>
+---
+title: &quot;rgamer を用いた資料作成&quot;
+author: &quot;Yoshio Kamijo&quot;
+date: &#39;2023-02-12&#39;
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+
+```{r}
+library(rgamer)
+```
+
+
+## 実行しつつコードを表示
+\small
+
+```{r echo = TRUE}
+g1 &lt;- normal_form(
+  players = c(&quot;player 1&quot;, &quot;player 2&quot;), 
+  s1 = c(&quot;C&quot;, &quot;D&quot;), 
+  s2 = c(&quot;C&quot;, &quot;D&quot;),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+
+sol_g1 &lt;- solve_nfg(g1, 
+                    mark_br = FALSE, 
+                    mixed = TRUE, 
+                    show_table = FALSE)
+
+```
+
+
+## 利得表を表示
+\small
+
+```{r, echo = TRUE, results = &#39;asis&#39;}
+
+sol_g1$table
+
+```
+
+
+## 最適反応を表示
+\small
+
+```{r, echo = TRUE, fig.align=&#39;center&#39;}
+
+sol_g1$br_plot
+
+```
+
+
+## 支配関係を表示
+\small
+
+コードは表示しない
+
+```{r}
+dom(g1)
+```
+
+
+## 展開形ゲーム
+
+```{r, echo = TRUE}
+g2 &lt;- seq_form(
+  players = c(&quot;P1&quot;, &quot;P2&quot;), 
+  s1 = c(&quot;C&quot;, &quot;D&quot;), 
+  s2 = c(&quot;C&quot;, &quot;D&quot;),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+```
+
+
+## ゲームの木
+
+```{r, echo = TRUE, fig.align=&#39;center&#39;}
+g3 &lt;- seq_extensive(g2)
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align=&#39;center&#39;}
+g3 &lt;- seq_extensive(g2, direction = &quot;right&quot;)
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align=&#39;center&#39;}
+g3 &lt;- seq_extensive(g2, direction = &quot;up&quot;)
+```
+
+
+## 向きを変える
+
+```{r, echo = TRUE, fig.align=&#39;center&#39;}
+g3 &lt;- seq_extensive(g2, direction = &quot;vertical&quot;)
+```
+</code></pre>
+<p><br></p>
+<p>上記の rmd ファイル。</p>
 <p><a href="data/test01.Rmd"> rmd ファイル </a></p>
 <p><br></p>
 <p>R Markdown の表記などについては以下のサイトが参考になる。</p>

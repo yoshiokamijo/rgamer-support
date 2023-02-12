@@ -40,7 +40,127 @@ ioslides で作成できる資料は以下のようなものである。
 
 <a href="data/test01.pdf"> pdf 形式の資料</a>
 
-このような資料を作成するには、以下の R Markdown 形式のファイルを RStudio で開いて、Knit ボタンを押せば良い。
+このような資料を作成するには、以下の内容を R Markdown 形式で保存して、RStudio で開いて Knit ボタンを押せば良い。
+
+<br>
+
+
+````
+
+---
+title: "rgamer を用いた資料作成"
+author: "Yoshio Kamijo"
+date: '2023-02-12'
+output: ioslides_presentation
+---
+
+`r ''````{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+`r ''````
+
+
+`r ''````{r}
+library(rgamer)
+`r ''````
+
+
+## 実行しつつコードを表示
+\small
+
+`r ''````{r echo = TRUE}
+g1 <- normal_form(
+  players = c("player 1", "player 2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+
+sol_g1 <- solve_nfg(g1, 
+                    mark_br = FALSE, 
+                    mixed = TRUE, 
+                    show_table = FALSE)
+
+`r ''````
+
+
+## 利得表を表示
+\small
+
+`r ''````{r, echo = TRUE, results = 'asis'}
+
+sol_g1$table
+
+`r ''````
+
+
+## 最適反応を表示
+\small
+
+`r ''````{r, echo = TRUE, fig.align='center'}
+
+sol_g1$br_plot
+
+`r ''````
+
+
+## 支配関係を表示
+\small
+
+コードは表示しない
+
+`r ''````{r}
+dom(g1)
+`r ''````
+
+
+## 展開形ゲーム
+
+`r ''````{r, echo = TRUE}
+g2 <- seq_form(
+  players = c("P1", "P2"), 
+  s1 = c("C", "D"), 
+  s2 = c("C", "D"),   
+  payoffs1 = c(4, 5, 1, 2),
+  payoffs2 = c(4, 1, 5, 2),
+)
+`r ''````
+
+
+## ゲームの木
+
+`r ''````{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2)
+`r ''````
+
+
+## 向きを変える
+
+`r ''````{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "right")
+`r ''````
+
+
+## 向きを変える
+
+`r ''````{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "up")
+`r ''````
+
+
+## 向きを変える
+
+`r ''````{r, echo = TRUE, fig.align='center'}
+g3 <- seq_extensive(g2, direction = "vertical")
+`r ''````
+
+````
+
+<br>
+
+上記の rmd ファイル。
 
 <a href="data/test01.Rmd"> rmd ファイル </a>
 
