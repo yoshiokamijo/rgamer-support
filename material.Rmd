@@ -46,11 +46,11 @@ ioslides で作成できる資料は以下のようなものである。
 
 <br>
 
-R Markdown の表記などについては以下のサイトが参考になります。
+R Markdown の表記などについては以下のサイトが参考になる。
 
 <a href="https://kazutan.github.io/kazutanR/Rmd_intro.html"> Kaztan.R の R Markdown 入門 </a>
 
-その他にも参考になるサイトはたくさんあります。
+その他にも参考になるサイトはたくさんある。
 
 
 <br>
