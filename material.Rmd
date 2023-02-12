@@ -42,7 +42,7 @@ ioslides で作成できる資料は以下のようなものである。
 
 このような資料を作成するには、以下の R Markdown 形式のファイルを RStudio で開いて、Knit ボタンを押せば良い。
 
-<a href="data/test01.rmd"> rmd ファイル </a>
+<a href="data/test01.Rmd"> rmd ファイル </a>
 
 <br>
 
